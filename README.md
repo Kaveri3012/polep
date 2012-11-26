@@ -1,6 +1,6 @@
 POLEP
 
-Short developer introduction:
+Short developer introduction (for Ubuntu / Mac)
 * Install git (http://git-scm.com/) end sts
 * Fork repository in the top right corner ("Fork")
 * Go to the folder you want to have the polep folder in
