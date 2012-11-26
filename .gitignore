@@ -1,0 +1,12 @@
+roo.log
+*~
+*/target
+*/.classpath
+*/.project
+*/.settings
+facedb.lck
+.classpath
+.project
+.settings/
+log.roo
+target/
