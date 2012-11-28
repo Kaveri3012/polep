@@ -1,0 +1,3 @@
+[submodule "AgentSpring"]
+	path = AgentSpring
+	url = git://github.com/alfredas/AgentSpring.git
