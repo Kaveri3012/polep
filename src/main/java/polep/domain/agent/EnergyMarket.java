@@ -10,7 +10,7 @@ import agentspring.agent.Agent;
 import agentspring.simulation.SimulationParameter;
 
 @NodeEntity
-public class Regulator extends AbstractAgent implements Agent {
+public class EnergyMarket extends AbstractAgent implements Agent {
 
     
     @SimulationParameter(label = "Agents Cash Balance", from = 1, to = 100)
