@@ -1,4 +1,7 @@
 package polep.domain.market;
+
+import org.springframework.data.neo4j.annotation.NodeEntity;
+
 /*
  * Establishes a volume-price pair for every power plant owned by an energy producer.
  * The volume price pair is established based on the bidding strategy returned.  
