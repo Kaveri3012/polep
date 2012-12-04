@@ -15,7 +15,7 @@ public class Regulator extends AbstractAgent implements Agent {
     
     @SimulationParameter(label = "Agents Cash Balance", from = 1, to = 100)
     double cash;
-    
+    double Fine;
     String name;
 
 
@@ -28,6 +28,22 @@ public class Regulator extends AbstractAgent implements Agent {
     public void setName(String name) {
         this.name = name;
     }
-   
+
+	public double getCash() {
+		return cash;
+	}
+
+	public void setCash(double cash) {
+		this.cash = cash;
+	}
+
+	public double getFine() {
+		return Fine;
+	}
+
+	public void setFine(double fine) {
+		Fine = fine;
+	}
+
 
 }
