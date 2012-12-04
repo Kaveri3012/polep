@@ -1,12 +1,15 @@
 package polep.domain.market;
-
+/*
+ * Establishes a volume-price pair for every power plant owned by an energy producer.
+ * The volume price pair is established based on the bidding strategy returned.  
+ */
 @NodeEntity//makes sure its integrated in the database
 public class Bid {
 
 	double volume;
 	double price;
-	float percentageWithholdment; 
+	double percentageWithholdment; 
 	
-	//call BidIntoMarket.ComputeProbablityChoiceof strategy
+	//call a method, 'computeChoice of strategy'?
 	
 }
