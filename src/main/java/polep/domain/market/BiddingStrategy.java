@@ -10,7 +10,20 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
 public class BiddingStrategy {
 
 	private double propensity;
+	private double probability;
+	StrategyElement chosenStrategy = new StrategyElement(); 
 	
 	@RelatedTo(type = "STRATEGY_ELEMENT", elementClass = StrategyElement.class, direction=Direction.OUTGOING)
 	Set<StrategyElement> setOfStrategyElements;
+
+	public StrategyElement getChosenStrategy() {
+		return chosenStrategy;
+	}
+
+	public BiddingStrategy() {
+		super();
+	}
+	
+	
+	
 }
