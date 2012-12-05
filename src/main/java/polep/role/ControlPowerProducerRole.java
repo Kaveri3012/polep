@@ -7,6 +7,8 @@ import agentspring.role.AbstractRole;
 import polep.domain.agent.EnergyProducer;
 
 public abstract class ControlPowerProducerRole extends AbstractRole<EnergyProducer> {
+	
+	
 
 
 
