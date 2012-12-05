@@ -41,11 +41,11 @@ public class PowerPlantTest {
     	PowerPlant plant = new PowerPlant();
     	Fuel fuel = new Fuel();
     	fuel.setPrice(20);
-    	fuel.persist();
+    	fuel.persist(); // Saves it to the database
     	plant.setCapacity(500);
     	plant.setThisFuel(fuel);
     	plant.setEfficiency(0.33);
-    	plant.persist();
+    	plant.persist(); // Saves it to the database
     	
     	PowerPlant plantFromDB = powerPlantRepository.findAll().iterator().next();
     	
