@@ -11,8 +11,21 @@ public class Bid {
 
 	double volume;
 	double price;
-	double percentageWithholdment; 
+	double percentageWithholdment;
+	
+	
+	public Bid() {
+		super();
+	}
+	
+	
+	
+	
+	
+	
 	
 	//call a method, 'computeChoice of strategy'?
+	
+	
 	
 }

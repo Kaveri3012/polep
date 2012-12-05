@@ -13,5 +13,11 @@ public class StrategyElement {
 	
 	@RelatedTo(type = "STRATEGY_POWERPLANT", elementClass=PowerPlant.class, direction=Direction.OUTGOING)
 	private PowerPlant powerplant;
+
+	public StrategyElement() {
+		super();
+	}
+	
+	
 	
 }
