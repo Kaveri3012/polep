@@ -42,7 +42,7 @@ public class BidIntoMarketRole  extends AbstractRole<EnergyProducer> implements 
 
 			bidPerPowerPlant.setPrice(marginalCost); 
 			bidPerPowerPlant.setVolume(realVolume);	
-
+			bidPerPowerPlant.persist();
 
 			
 

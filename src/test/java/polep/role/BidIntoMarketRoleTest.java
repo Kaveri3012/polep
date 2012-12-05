@@ -35,7 +35,6 @@ public class BidIntoMarketRoleTest {
     @Autowired Neo4jOperations template;
     @Autowired PowerPlantRepository powerPlantRepository;
     @Autowired EnergyProducerRepository energyProducerRepository;
-    @Autowired BidIntoMarketRole bidIntoMarketRole;
     @Autowired BidRepository bidRepository; 
     
     Logger logger = Logger.getLogger(BidIntoMarketRoleTest.class);
@@ -62,11 +61,14 @@ public class BidIntoMarketRoleTest {
     	Set<PowerPlant> setPowerPlant = producer.getPowerPlantSet();
     	setPowerPlant.add(plant);
     	producer.persist();
+    	
+    	BidIntoMarketRole bidIntoMarketRole = new BidIntoMarketRole();
     	bidIntoMarketRole.act(producer);
+    	
     	
     	Bid bid = bidRepository.findAll().iterator().next();
     	
-    	logger.warn("Price" + bid.getPrice());
+    	logger.warn("Price: " + bid.getPrice());
     	logger.warn("Volume: " + bid.getVolume());
     	
     	assertTrue(bid.getPrice()==20);
