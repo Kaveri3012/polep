@@ -8,9 +8,7 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
 @NodeEntity
 public class PowerPlant {
 
-    @Indexed
-    private double price;
-    // @Indexed
+        // @Indexed
     private String nameTechnology;
     private double capacity;
     private double efficiency; 
@@ -18,14 +16,7 @@ public class PowerPlant {
     @RelatedTo(type = "USES_FUEL", elementClass = Fuel.class, direction = Direction.OUTGOING)
     public Fuel thisFuel;
     
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
+   
     public String getName() {
         return nameTechnology;
     }
