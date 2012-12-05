@@ -20,7 +20,8 @@ public class PolepModelRole extends AbstractRole<PolepModel> implements Role<Pol
 
 /*    	
     	 In each time step the following script is run
-
+			
+			<----- BidIntoMarketRole----->
     		Each EnergyProducer bids into the market by
     			Establishes the (RealVolume, MarginalCost) for each of his Power Plants by
     				RealVolume: Getting the Capacity of the Power Plant
@@ -37,13 +38,17 @@ public class PolepModelRole extends AbstractRole<PolepModel> implements Role<Pol
     				Depending upon the selected strategy calculate the Volume for each power plant : Strategy.getPowerPlant.getWitholdment*RealCapacity
     				Price in bid class: Getting the marginal cost multiplying by (1+Price Markup of producer)
     				Establish Volume-Price pair
-
+				
+				
+				<------ ClearMarketRole ----->
     			The APX clears the market by:
     				Search for bids of the current time step from the graph database
     				Sort bids according to bid price
     				Determines market clearing price depending on demand.
     				Store ClearingPrice in database
 
+
+				<------ DispatchPowerPlantRole------>
     			PowerPlant owners dispatch power:
     				Determine volume for dispatch = get ClearingPrice from database and compare with own bids.
     				Determine dispatch order depending upon marginal cost of generation and dispatch volume
@@ -51,6 +56,9 @@ public class PolepModelRole extends AbstractRole<PolepModel> implements Role<Pol
     				Update cash = cash + Revenue (double)
     				Revenues  = ClearingPrice*Volume 
 
+
+
+				<--- RegulatorRole ----->
     			Regulator controls Powerplant owner:
     				Throw a weighted coin (probability to control) to select owners for control (this is to simulate imperfect knowledge of the regulator)
     				Compare Bid volume with installed capacity
@@ -58,6 +66,7 @@ public class PolepModelRole extends AbstractRole<PolepModel> implements Role<Pol
     				Fine is property of regulator
     				Update Cash = Cash - Fine
     			
+    			<---- UpdatePropensityRole ---->
     			Update learning algorithm for all producers. 
     				Update propensities for all actions using the reward r (=cash - PrevCash)
     				

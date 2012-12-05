@@ -1,23 +1,21 @@
 package polep.domain.technology;
 
-import java.util.Set;
-
+import org.neo4j.graphdb.Direction;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
-
-import polep.domain.agent.RelatedTo;
+import org.springframework.data.neo4j.annotation.RelatedTo;
 
 @NodeEntity
 public class PowerPlant {
 
     @Indexed
-    double price;
+    private double price;
     // @Indexed
-    String nameTechnology;
-    double capacity;
-    double efficiency; 
+    private String nameTechnology;
+    private double capacity;
+    private double efficiency; 
     
-    @RelatedTo(type = "USES FUEL", elementClass = Fuel.class, direction = Direction.OUTGOING)
+    @RelatedTo(type = "USES_FUEL", elementClass = Fuel.class, direction = Direction.OUTGOING)
     public Fuel thisFuel;
     
     public double getPrice() {
@@ -58,6 +56,10 @@ public class PowerPlant {
 
 	public void setThisFuel(Fuel thisFuel) {
 		this.thisFuel = thisFuel;
+	}
+	
+	public double getMarginalCost(){
+		return this.getThisFuel().getPrice()/this.efficiency;
 	}
 
 }

@@ -10,3 +10,5 @@ facedb.lck
 .settings/
 log.roo
 target/
+.DS_Store
+*.log
