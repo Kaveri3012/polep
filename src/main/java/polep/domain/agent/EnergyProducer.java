@@ -1,5 +1,7 @@
 package polep.domain.agent;
 
+
+
 import java.util.Set;
 
 import org.neo4j.graphdb.Direction;
@@ -11,6 +13,12 @@ import polep.domain.technology.PowerPlant;
 import agentspring.agent.AbstractAgent;
 import agentspring.agent.Agent;
 import agentspring.simulation.SimulationParameter;
+
+/**
+ * @author Ruben Verweij
+ * working on it today
+ */
+
 
 @NodeEntity
 public class EnergyProducer extends AbstractAgent implements Agent {
