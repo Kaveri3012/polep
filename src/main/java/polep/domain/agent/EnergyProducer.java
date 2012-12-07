@@ -8,7 +8,15 @@ package polep.domain.agent;
 
 
 import java.util.Set;
+
+import org.neo4j.graphdb.Direction;
+import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.springframework.data.neo4j.annotation.RelatedTo;
+
 import polep.domain.technology.PowerPlant;
+import agentspring.agent.AbstractAgent;
+import agentspring.agent.Agent;
+import agentspring.simulation.SimulationParameter;
 
 @NodeEntity
 public class EnergyProducer extends AbstractAgent implements Agent {

@@ -7,14 +7,10 @@ package polep.domain.market;
  *question: is demand set here or is it part of the environment?
  */
 
-import java.util.Set;
-
 import org.springframework.data.neo4j.annotation.NodeEntity;
-import org.springframework.data.neo4j.annotation.RelatedTo;
 
 import agentspring.agent.AbstractAgent;
 import agentspring.agent.Agent;
-import agentspring.simulation.SimulationParameter;
 
 @NodeEntity
 public class EnergyMarket extends AbstractAgent implements Agent {
