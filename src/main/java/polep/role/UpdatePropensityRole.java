@@ -13,7 +13,7 @@ import agentspring.role.Role;
 import agentspring.role.ScriptComponent;
 
 /**
- * @author Ruben Verweij
+ * @author RubenVerweij
  * This role updates the propensities. It is the last step of the Erev-Roth Algorithm.
  * 
  * The role is the following;
