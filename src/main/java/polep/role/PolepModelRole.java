@@ -21,7 +21,7 @@ public class PolepModelRole extends AbstractRole<PolepModel> implements Role<Pol
 /*    	
     	 In each time step the following script is run
 			
-			<----- BidIntoMarketRole----->
+			<----- BidIntoMarketRole: Kaveri ----->
     		Each EnergyProducer bids into the market by
     			Establishes the (RealVolume, MarginalCost) for each of his Power Plants by
     				RealVolume: Getting the Capacity of the Power Plant
@@ -40,7 +40,7 @@ public class PolepModelRole extends AbstractRole<PolepModel> implements Role<Pol
     				Establish Volume-Price pair
 				
 				
-				<------ ClearMarketRole ----->
+				<------ ClearMarketRole: Prad ----->
     			The APX clears the market by:
     				Search for bids of the current time step from the graph database
     				Sort bids according to bid price
@@ -48,7 +48,7 @@ public class PolepModelRole extends AbstractRole<PolepModel> implements Role<Pol
     				Store ClearingPrice in database
 
 
-				<------ DispatchPowerPlantRole------>
+				<------ DispatchPowerPlantRole: Ruben ------>
     			PowerPlant owners dispatch power:
     				Determine volume for dispatch = get ClearingPrice from database and compare with own bids.
     				Determine dispatch order depending upon marginal cost of generation and dispatch volume
@@ -58,7 +58,7 @@ public class PolepModelRole extends AbstractRole<PolepModel> implements Role<Pol
 
 
 
-				<--- RegulatorRole ----->
+				<--- RegulatorRole: Prad ----->
     			Regulator controls Powerplant owner:
     				Throw a weighted coin (probability to control) to select owners for control (this is to simulate imperfect knowledge of the regulator)
     				Compare Bid volume with installed capacity
@@ -66,7 +66,7 @@ public class PolepModelRole extends AbstractRole<PolepModel> implements Role<Pol
     				Fine is property of regulator
     				Update Cash = Cash - Fine
     			
-    			<---- UpdatePropensityRole ---->
+    			<---- UpdatePropensityRole: Ruben ---->
     			Update learning algorithm for all producers. 
     				Update propensities for all actions using the reward r (=cash - PrevCash)
     				

@@ -4,10 +4,10 @@ package polep.role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import polep.domain.agent.EnergyProducer;
-import polep.domain.agent.PolepModel;
-import polep.repository.PowerPlantRepository;
+import polep.repository.EnergyProducerRepository;
 import agentspring.role.AbstractRole;
 import agentspring.role.Role;
 import agentspring.role.ScriptComponent;

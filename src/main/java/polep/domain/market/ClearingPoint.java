@@ -17,8 +17,8 @@ import polep.domain.market.PowerExchange;
 @NodeEntity
 public class ClearingPoint {
 
-	@RelatedTo(type = "MARKET_POINT", elementClass = PowerExchange.class, direction = Direction.OUTGOING)
-	PowerExchange abstractMarket;
+	@RelatedTo(type = "MARKET_POINT", elementClass = EnergyMarket.class, direction = Direction.OUTGOING)
+	EnergyMarket abstractMarket;
 
 	private double price;
 	private double volume;

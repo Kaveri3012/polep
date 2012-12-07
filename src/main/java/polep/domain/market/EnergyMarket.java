@@ -11,11 +11,12 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
 
 import agentspring.agent.AbstractAgent;
 import agentspring.agent.Agent;
+import agentspring.role.Role;
 
 @NodeEntity
 public class EnergyMarket extends AbstractAgent implements Agent {
 
-    
+    String name;
     double clearingPrice;    
     double valueOfLostLoad; 
     double demand; 
@@ -39,6 +40,17 @@ public class EnergyMarket extends AbstractAgent implements Agent {
 		return demand;
 	}
 
+	@Override
+	public String getName() {
+		return this.name;
+	}
+
+	@Override
+	public void setName(String name) {
+		this.name = name;
+		
+	}
+
 
 	//public void setDemand(double demandSet) {
     //    this.demand = demandSet;
@@ -53,5 +65,3 @@ public class EnergyMarket extends AbstractAgent implements Agent {
 		Store ClearingPrice in database
 		*/
    
-
-}
