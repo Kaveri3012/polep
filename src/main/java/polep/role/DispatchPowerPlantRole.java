@@ -4,16 +4,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import polep.domain.agent.EnergyProducer;
+import polep.domain.market.Bid;
+import polep.domain.market.EnergyMarket;
+import polep.domain.technology.PowerPlant;
+import polep.repository.BidRepository;
+import polep.repository.EnergyProducerRepository;
 import polep.repository.PowerPlantRepository;
 import agentspring.role.AbstractRole;
 import agentspring.role.Role;
 
 /**
- * @author Ruben Verweij
+ * @author RubenVerweij
  *PowerPlant owners dispatch power:
  *Determine volume for dispatch = get ClearingPrice from database and compare with own bids.
  *Determine dispatch order depending upon marginal cost of generation and dispatch volume
- *Store Cash in PrevCash [think of the profit made by withholdment for determining the fine amount]
+ *Store Cash in PrevCash 
  *Update cash = cash + Revenue (double)
  *Revenues  = ClearingPrice*Volume 
  */
@@ -22,37 +27,38 @@ public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implem
 
 	@Autowired
 	PowerPlantRepository powerPlantRepository;
-
+	BidRepository bidRepository;
+	EnergyProducerRepository energyProducerRepository;
+	
 	@Transactional
 	public void act(EnergyProducer producer){
 		
-		clearingPrice = ClearingMarketRole.getClearingPrice();
-		// get clearing price
+		double marginalCost = 0;
+		double realVolume;
+		double clearingPrice;
+										
+		for (PowerPlant plant : producer.getPowerPlantSet()){ 
 		
-		marginalCost = plant.getMarginalCost();
-		// get all marginal costs
-		
-		producersBids = BidIntoMarketRole.getbidPerPowerPlant();
-		// get bids
-				
-		if (MarginalPrice <= ClearingPrice  ) {
+			plant.getMarginalCost();
+			clearingPrice = EnergyMarket.getClearingPrice();
 			
-			dispatchPerPowerPlant.setPrice(marginalCost) = bidPerPowerPlant.setPrice(marginalCost);  
-			dispatchPerPowerPlant.setVolume(realVolume) = bidPerPowerPlant.setVolume(realVolume);		
-			dispatchPerPowerPlant.persist() = bidPerPowerPlant.persist();
-			revenues = ClearingPrice * get ;
+			if ( marginalCost <= clearingPrice ) {
+			
+			
+				
+			//Bid bidPerPowerPlant = new Bid();
+				
+			//dispatchPerPowerPlant.setPrice(marginalCost);  
+			//dispatchPerPowerPlant.setVolume(realVolume);		
+			//dispatchPerPowerPlant.persist();
+			//revenues = ClearingPrice * get;
 			
 		} else {
 			
-			bidPerPowerPlant.setPrice(marginalCost) = 0;
-			bidPerPowerPlant.setVolume(realVolume) = 0;
-			bidPerPowerPlant.persist() = 0;
+			//bidPerPowerPlant.setPrice(marginalCost);
+			//bidPerPowerPlant.setVolume(realVolume);
+			//bidPerPowerPlant.persist();
 		} 
-		
-		
-		
-		
-
-	
+		}
 	}
 }

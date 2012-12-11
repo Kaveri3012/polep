@@ -31,10 +31,7 @@ public class UpdatePropensityRole extends AbstractRole<EnergyProducer> implement
       
     @Autowired
     EnergyProducerRepository energyProducerRepository;
-
   
-	
-    
     @Transactional
     public void act(EnergyProducer producer){
     	
