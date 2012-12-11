@@ -17,22 +17,30 @@ import agentspring.agent.Agent;
 import agentspring.simulation.SimulationParameter;
 
 @NodeEntity
-public class EnergyMarket extends AbstractAgent implements Agent {
+public abstract class EnergyMarket extends AbstractAgent implements Agent {
 
     
     double clearingPrice;    
     double valueOfLostLoad; 
     double demand; 
+    private boolean auction;
 
    
-    public double getClearingPrice() {
+  public double getClearingPrice() {
 		return clearingPrice;
 	}
+  
+  public double setClearingPrice(double clearingPrice) {
+		return this.clearingPrice = clearingPrice;
+	}
+
 
 	public double getValueOfLostLoad() {
 		return valueOfLostLoad;
 	}
 
+
+	
 
 	public void setValueOfLostLoad(double valueOfLostLoad) {
 		this.valueOfLostLoad = valueOfLostLoad;
@@ -41,6 +49,19 @@ public class EnergyMarket extends AbstractAgent implements Agent {
 
 	public double getDemand() {
 		return demand;
+	}
+
+	 public boolean isAuction() {
+   
+		return auction;
+    }
+
+	public void setDemand(double demand) {
+		this.demand = demand;
+	}
+
+	public void setAuction(boolean auction) {
+		this.auction = auction;
 	}
 
 
@@ -58,4 +79,4 @@ public class EnergyMarket extends AbstractAgent implements Agent {
 		*/
    
 
-}
+

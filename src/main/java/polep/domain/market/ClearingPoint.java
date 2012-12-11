@@ -5,7 +5,7 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.springframework.transaction.annotation.Transactional;
 
-import polep.domain.market.PowerExchange;
+import polep.domain.market.EnergyMarket;
 
 /**
  * Spot market clearing point
@@ -17,8 +17,8 @@ import polep.domain.market.PowerExchange;
 @NodeEntity
 public class ClearingPoint {
 
-	@RelatedTo(type = "MARKET_POINT", elementClass = PowerExchange.class, direction = Direction.OUTGOING)
-	PowerExchange abstractMarket;
+	@RelatedTo(type = "MARKET_POINT", elementClass = EnergyMarket.class, direction = Direction.OUTGOING)
+	EnergyMarket abstractMarket;
 
 	private double price;
 	private double volume;
@@ -43,10 +43,10 @@ public class ClearingPoint {
 		this.time = time;
 	}
 
-	public PowerExchange getAbstractMarket() {
+	public EnergyMarket getAbstractMarket() {
 		return abstractMarket;
 	}
-	public void setAbstractMarket(PowerExchange abstractMarket) {
+	public void setAbstractMarket(EnergyMarket abstractMarket) {
 		this.abstractMarket = abstractMarket;
 	}
 	
@@ -57,7 +57,7 @@ public class ClearingPoint {
     }
 
     @Transactional
-    public void updateAbstractMarket(PowerExchange market) {
+    public void updateAbstractMarket(EnergyMarket market) {
         setAbstractMarket(market);
     }
 
