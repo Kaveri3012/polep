@@ -6,7 +6,6 @@ package polep.domain.agent;
  * parameter and a price mark up
  */
 
-
 import java.util.Set;
 
 import org.neo4j.graphdb.Direction;
@@ -40,8 +39,11 @@ public class EnergyProducer extends AbstractAgent implements Agent {
     @SimulationParameter(label = "The price markup", from = 0, to = 1)
     private double priceMarkUp;
     
-    String name;
+    public String name;
 
+    
+    // get and setters
+    
 	public double getCash() {
 		return cash;
 	}
