@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import polep.domain.agent.EnergyProducer;
-import polep.domain.market.Bid;
 import polep.domain.market.EnergyMarket;
 import polep.domain.technology.PowerPlant;
 import polep.repository.BidRepository;
@@ -33,32 +32,48 @@ public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implem
 	@Transactional
 	public void act(EnergyProducer producer){
 		
-		double marginalCost = 0;
+		double marginalCost;
 		double realVolume;
+		double dispatchVolume = 0;
 		double clearingPrice;
+		double cash;
+		double revenuePerPowerPlant = 0;
+		double revenue = 0;
+		double prevCash = 0;
+		
+		cash = prevCash;
+		// set cash is prevCash
 										
 		for (PowerPlant plant : producer.getPowerPlantSet()){ 
 		
-			plant.getMarginalCost();
+			// define the plants who dispatch their power
+			marginalCost = plant.getMarginalCost();
 			clearingPrice = EnergyMarket.getClearingPrice();
+			realVolume = plant.getCapacity();
 			
 			if ( marginalCost <= clearingPrice ) {
 			
+			realVolume = dispatchVolume;
+			// if this is the case the bid is transformed to dispatch bid
+					
+			}else {
 			
-				
-			//Bid bidPerPowerPlant = new Bid();
-				
-			//dispatchPerPowerPlant.setPrice(marginalCost);  
-			//dispatchPerPowerPlant.setVolume(realVolume);		
-			//dispatchPerPowerPlant.persist();
-			//revenues = ClearingPrice * get;
+			realVolume = dispatchVolume;
+			dispatchVolume = 0;
+			// when this is the case, the bid is set to zero
 			
-		} else {
-			
-			//bidPerPowerPlant.setPrice(marginalCost);
-			//bidPerPowerPlant.setVolume(realVolume);
-			//bidPerPowerPlant.persist();
-		} 
+			} 
 		}
+		
+		for (PowerPlant plant : producer.getPowerPlantSet()) {
+			
+			// define the revenue
+			clearingPrice = EnergyMarket.getClearingPrice();
+			revenuePerPowerPlant = dispatchVolume * clearingPrice;
+			revenue =+ revenuePerPowerPlant;
+		}
+		
+		// define the revenue per producer, how to that?
+		cash = prevCash + revenue ;
 	}
 }

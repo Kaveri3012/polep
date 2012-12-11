@@ -20,9 +20,9 @@ import agentspring.simulation.SimulationParameter;
 @NodeEntity
 public class EnergyProducer extends AbstractAgent implements Agent {
 	
-	public EnergyProducer producer1 = new EnergyProducer();
-	public EnergyProducer producer2 = new EnergyProducer();
-	public EnergyProducer producer3 = new EnergyProducer();
+	EnergyProducer producer1 = new EnergyProducer();
+	EnergyProducer producer2 = new EnergyProducer();
+	EnergyProducer producer3 = new EnergyProducer();
     
     @SimulationParameter(label = "Agents Cash Balance", from = 1, to = 100)
     private double cash;
