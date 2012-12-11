@@ -24,7 +24,6 @@ import agentspring.role.ScriptComponent;
  * Ej(epsilon,k,t) = rk(t) [ epsilon/(N-1) ]			if j != k
  **/
  
-
 @ScriptComponent
 public class UpdatePropensityRole extends AbstractRole<EnergyProducer> implements Role<EnergyProducer> {
 	
@@ -33,23 +32,26 @@ public class UpdatePropensityRole extends AbstractRole<EnergyProducer> implement
     @Autowired
     EnergyProducerRepository energyProducerRepository;
 
+  
+	
+    
     @Transactional
     public void act(EnergyProducer producer){
     	
     	allStrategies = thisBiddingStrategy.getSetOfStrategyElements();
     	chosenSE = thisBiddingStrategy.getChosenStrategy(); 
     	presentPropensity = thisBiddingStrategy.getPropensity();
-    	// get strategyReward from DispatchPowerPlantRole = Cash - prevCash to be defined
+    	// get strategyReward from ClearingMarketRole / regulator = Cash - prevCash to be defined
     	experimentationParameter = producer.getExperimentationParameter();
     	recencyParameter = producer.getRecencyParameter();
    
     	if (StrategyElement = chosenSE)  {
-    	//experienceFunction = reward * (1-experimentationParameter) 
-    	//updatePropensity.setPropensity((1-recencyParameter)*presentPropensity+experienceFunction); 
+    	experienceFunction = reward * (1-experimentationParameter); 
+    	updatePropensity.setPropensity((1-recencyParameter)*presentPropensity+experienceFunction); 
     	}
     	else {
-    	//experienceFunction = reward * (experimentationParameter/(size(SetOfStrategyElements)-1)) 
-        //updatePropensity.setPropensity((1-recencyParameter)*presentPropensity+experienceFunction);
+    	experienceFunction = reward * (experimentationParameter/(size(SetOfStrategyElements)-1)); 
+        updatePropensity.setPropensity((1-recencyParameter)*presentPropensity+experienceFunction);
     	}   
     } 
 }
