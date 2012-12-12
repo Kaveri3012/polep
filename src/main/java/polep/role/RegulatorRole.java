@@ -1,7 +1,22 @@
 package polep.role;
 
+import java.lang.reflect.Array;
+import java.util.Set;
+
+import org.neo4j.graphdb.Direction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.neo4j.annotation.RelatedTo;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
+
+
+
 import agentspring.role.AbstractRole;
+import polep.domain.agent.EnergyProducer;
 import polep.domain.agent.Regulator;
+import polep.domain.technology.PowerPlant;
+import polep.repository.BidRepository;
+import polep.repository.EnergyProducerRepository;
 
 /*<--- RegulatorRole: Prad ----->
 Regulator controls Powerplant owner:
@@ -14,4 +29,53 @@ Regulator controls Powerplant owner:
 
 public abstract class RegulatorRole extends AbstractRole<Regulator> {
 
+
+	@Autowired
+	EnergyProducerRepository energyProducerRepository;
+
+	@Autowired
+	BidRepository bidRepository;
+	@RelatedTo(type = "OWNS", elementClass = PowerPlant.class, direction = Direction.OUTGOING)
+	private Set<PowerPlant> powerPlantSet;
+	@Transactional
+	public void act(EnergyProducer producer);
+	@Transactional
+	public void act(Regulator regulator){
+
+
+		int counter = 0;
+		int x = energyProducerRepository.listofpowerplantowners().size();
+		int probability[] = new int[x];
+		double Fine = regulator.getFine();
+		double Capacity;
+
+		for (counter = 0; counter <= x; counter++){
+			BiasedCoin coin = new BiasedCoin();
+			energyProducerRepository.listofpowerplantowners().get(counter);
+
+			coin.flip(probability[counter]);
+			double result = coin.getSide();
+
+			if (result > 0.5){
+
+				break;
+			}
+			else if (result <= 0.5){
+				for (int i = 0; i<= energyProducerRepository.listofpowerplantowners().get(counter).getPowerPlantSet().size();i++){
+					Capacity = Capacity + energyProducerRepository.listofpowerplantowners().get(counter).getPowerPlantSet().getCapacity(i);
+
+				}
+
+				//  if Bid Volume [counter] < Capacity
+
+				// producer.setCash() = producer.getCash() - Fine
+
+				//probability[counter] += 0.1
+
+
+			}
+
+
+		}
+	}
 }
