@@ -7,40 +7,29 @@ package polep.domain.market;
  *question: is demand set here or is it part of the environment?
  */
 
-import java.util.Set;
-
 import org.springframework.data.neo4j.annotation.NodeEntity;
-import org.springframework.data.neo4j.annotation.RelatedTo;
 
 import agentspring.agent.AbstractAgent;
 import agentspring.agent.Agent;
-import agentspring.simulation.SimulationParameter;
+import agentspring.role.Role;
 
 @NodeEntity
-public abstract class EnergyMarket extends AbstractAgent implements Agent {
+public class EnergyMarket extends AbstractAgent implements Agent {
 
-    
+    String name;
     double clearingPrice;    
     double valueOfLostLoad; 
     double demand; 
-    private boolean auction;
 
    
-  public double getClearingPrice() {
+    public double getClearingPrice() {
 		return clearingPrice;
 	}
-  
-  public double setClearingPrice(double clearingPrice) {
-		return this.clearingPrice = clearingPrice;
-	}
-
 
 	public double getValueOfLostLoad() {
 		return valueOfLostLoad;
 	}
 
-
-	
 
 	public void setValueOfLostLoad(double valueOfLostLoad) {
 		this.valueOfLostLoad = valueOfLostLoad;
@@ -51,17 +40,15 @@ public abstract class EnergyMarket extends AbstractAgent implements Agent {
 		return demand;
 	}
 
-	 public boolean isAuction() {
-   
-		return auction;
-    }
-
-	public void setDemand(double demand) {
-		this.demand = demand;
+	@Override
+	public String getName() {
+		return this.name;
 	}
 
-	public void setAuction(boolean auction) {
-		this.auction = auction;
+	@Override
+	public void setName(String name) {
+		this.name = name;
+		
 	}
 
 
@@ -76,7 +63,4 @@ public abstract class EnergyMarket extends AbstractAgent implements Agent {
 		Sort bids according to bid price
 		Determines market clearing price depending on demand.
 		Store ClearingPrice in database
-		*/
-   
-
-
+		*/
