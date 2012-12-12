@@ -4,6 +4,13 @@ package polep.domain.agent;
  * @author RubenVerweij
  * In this class the EnergyProducer is defined. This producer has the following properties; cash, a set of power plants, a recency parameter, a experimentation
  * parameter and a price mark up
+ * 
+ * An EnergyProducer is supposed to have a set of strategies. 
+ * Each strategy has a set of StrategyElements (which contains 
+ * a link to one power plant, and the witholdment for that power plant). 
+ * He also is supposed to have one currentStrategy, that is the Strategy
+ * of the Set of Strategies he is currently using.
+ * 
  */
 
 import java.util.Set;
@@ -24,12 +31,29 @@ public class EnergyProducer extends AbstractAgent implements Agent {
 	EnergyProducer producer2 = new EnergyProducer();
 	EnergyProducer producer3 = new EnergyProducer();
     
-    @SimulationParameter(label = "Agents Cash Balance", from = 1, to = 100)
-    private double cash;
-     
+        
     @RelatedTo(type = "OWNS", elementClass = PowerPlant.class, direction = Direction.OUTGOING)
     private Set<PowerPlant> powerPlantSet;
     
+    @SimulationParameter(label = "Agents Cash Balance", from = -1e5, to = 1e5)
+    private double cash;
+    
+ 	@SimulationParameter(label = "The set of strategies", from = 0, to = 1)
+    private double setOfStrategies[];
+    // one set of strategies   
+    
+    @SimulationParameter(label = "The strategy", from = 0, to = 8)
+    private double strategy[];
+    // 9 strategies
+    
+    @SimulationParameter(label = "The strategy element", from = 0, to = 5)
+    private double strategyElement;
+    // contains the powerplant 1,2,3 and the three percentages of withholdment
+    
+    @SimulationParameter(label = "The chosen strategy", from = 0, to = 1)
+    private double chosenStrategy[];
+    // chosen strategy at the moment
+        
     @SimulationParameter(label = "The recency parameter", from = 0, to = 1)
     private double recencyParameter;
     
@@ -92,5 +116,44 @@ public class EnergyProducer extends AbstractAgent implements Agent {
 		this.name = name;
 	}
 
+	public EnergyProducer getProducer1() {
+		return producer1;
+	}
+
+	public void setProducer1(EnergyProducer producer1) {
+		this.producer1 = producer1;
+	}
+
+	public EnergyProducer getProducer2() {
+		return producer2;
+	}
+
+	public void setProducer2(EnergyProducer producer2) {
+		this.producer2 = producer2;
+	}
+
+	public EnergyProducer getProducer3() {
+		return producer3;
+	}
+
+	public void setProducer3(EnergyProducer producer3) {
+		this.producer3 = producer3;
+	}
+
+	public double[] getSetOfStrategies() {
+		return setOfStrategies;
+	}
+
+	public void setSetOfStrategies(double[] setOfStrategies) {
+		this.setOfStrategies = setOfStrategies;
+	}
+
+	public double[] getChosenStrategy() {
+		return chosenStrategy;
+	}
+
+	public void setChosenStrategy(double[] chosenStrategy) {
+		this.chosenStrategy = chosenStrategy;
+	}
 
 }
