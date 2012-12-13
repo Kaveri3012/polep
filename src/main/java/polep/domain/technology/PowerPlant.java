@@ -14,10 +14,18 @@ public class PowerPlant {
     private double efficiency; 
     
     @RelatedTo(type = "USES_FUEL", elementClass = Fuel.class, direction = Direction.OUTGOING)
-    public Fuel thisFuel;
+    public Fuel fuel;
     
    
-    public String getName() {
+    public Fuel getFuel() {
+		return fuel;
+	}
+
+	public void setFuel(Fuel fuel) {
+		this.fuel = fuel;
+	}
+
+	public String getName() {
         return nameTechnology;
     }
 
@@ -41,16 +49,8 @@ public class PowerPlant {
 		this.efficiency = efficiency;
 	}
 
-	public Fuel getThisFuel() {
-		return thisFuel;
-	}
-
-	public void setThisFuel(Fuel thisFuel) {
-		this.thisFuel = thisFuel;
-	}
-	
-	public double getMarginalCost(){
-		return this.getThisFuel().getPrice()/this.efficiency;
+	public double calculateMarginalCost() {
+		return getFuel().getPrice()/getEfficiency();
 	}
 
 }

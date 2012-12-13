@@ -11,20 +11,49 @@ public class BiddingStrategy {
 
 	private double propensity;
 	private double probability;
-	/* TODO The chosenStrategy should be defined in EnergyProducer, and refer to a whole Strategy
-	 * not only one strategyElement.
-	 */
-	StrategyElement chosenStrategy = new StrategyElement(); 
 	
-	@RelatedTo(type = "STRATEGY_ELEMENT", elementClass = StrategyElement.class, direction=Direction.OUTGOING)
-	Set<StrategyElement> setOfStrategyElements;
-
-	public StrategyElement getChosenStrategy() {
-		return chosenStrategy;
-	}
+	@RelatedTo(type = "STRATEGY_ELEMENT", elementClass = PowerPlantWithholdment.class, direction=Direction.OUTGOING)
+	Set<PowerPlantWithholdment> setOfPowerPlantWithholdments;
 
 	public BiddingStrategy() {
 		super();
+	}
+
+	/**
+	 * @return the propensity
+	 */
+	public double getPropensity() {
+		return propensity;
+	}
+
+	/**
+	 * @param propensity the propensity to set
+	 */
+	public void setPropensity(double propensity) {
+		this.propensity = propensity;
+	}
+
+	/**
+	 * @return the probability
+	 */
+	public double getProbability() {
+		return probability;
+	}
+
+	/**
+	 * @param probability the probability to set
+	 */
+	public void setProbability(double probability) {
+		this.probability = probability;
+	}
+
+	public Set<PowerPlantWithholdment> getSetOfPowerPlantWithholdments() {
+		return setOfPowerPlantWithholdments;
+	}
+
+	public void setSetOfPowerPlantWithholdments(
+			Set<PowerPlantWithholdment> setOfPowerPlantWithholdments) {
+		this.setOfPowerPlantWithholdments = setOfPowerPlantWithholdments;
 	}
 	
 	

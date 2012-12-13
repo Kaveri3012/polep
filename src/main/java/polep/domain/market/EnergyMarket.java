@@ -12,13 +12,16 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
 import agentspring.agent.AbstractAgent;
 import agentspring.agent.Agent;
 import agentspring.role.Role;
+import agentspring.simulation.SimulationParameter;
 
 @NodeEntity
 public class EnergyMarket extends AbstractAgent implements Agent {
 
     String name;
-    double clearingPrice;    
+    double clearingPrice; 
+    @SimulationParameter(label = "Value of lost load", from=0, to=2000, step = 11)
     double valueOfLostLoad; 
+    @SimulationParameter(label = "Demand", from=0, to=50000, step = 1000)
     double demand; 
 
    

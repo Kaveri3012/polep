@@ -16,8 +16,11 @@ public class Regulator extends AbstractAgent implements Agent {
     
     @SimulationParameter(label = "Agents Cash Balance", from = 1, to = 100)
     double cash;
-    double Fine;
+    @SimulationParameter(label = "Amount of fine", from = 1, to = 100000)
+    double fine;
     String name;
+    @SimulationParameter(label = "Probability to check", from = 1, to = 100000)
+    double probabilityToCheck;
 
 
     @Override
@@ -39,11 +42,11 @@ public class Regulator extends AbstractAgent implements Agent {
 	}
 
 	public double getFine() {
-		return Fine;
+		return fine;
 	}
 
 	public void setFine(double fine) {
-		Fine = fine;
+		this.fine = fine;
 	}
 
 

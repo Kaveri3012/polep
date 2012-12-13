@@ -54,7 +54,7 @@ public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implem
 		for (PowerPlant plant : producer.getPowerPlantSet()){ 
 		
 			// define the plants who dispatch their power
-			marginalCost = plant.getMarginalCost();
+			marginalCost = plant.calculateMarginalCost();
 			clearingPrice = EnergyMarket.getClearingPrice();
 			realVolume = plant.getCapacity();
 			

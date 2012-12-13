@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import polep.domain.agent.EnergyProducer;
 import polep.domain.market.BiddingStrategy;
 import polep.domain.market.EnergyMarket;
-import polep.domain.market.StrategyElement;
+import polep.domain.market.PowerPlantWithholdment;
 import polep.domain.technology.PowerPlant;
 import polep.repository.BidRepository;
 import polep.repository.EnergyProducerRepository;
@@ -50,7 +50,7 @@ public class UpdatePropensityRole extends AbstractRole<EnergyProducer> implement
     	double recencyParameter; // from producer
     	double experimentationParameter; // from producer
     	double strategy[]; // from producer
-    	Set<StrategyElement> setOfStrategyElements; // from producer
+    	Set<PowerPlantWithholdment> setOfStrategyElements; // from producer
     	double setOfStrategies[];
        	double chosenStrategy[]; // from bidding strategy
     	double propensity; // from bidding strategy
@@ -59,7 +59,7 @@ public class UpdatePropensityRole extends AbstractRole<EnergyProducer> implement
     	double reward;
     	
     	//TODO this needs to come out of the energyProducer via a getter-setter method.
-    	Set<StrategyElement> allStrategies = BiddingStrategy.getSetOfStrategyElements();
+    	Set<PowerPlantWithholdment> allStrategies = BiddingStrategy.getSetOfStrategyElements();
     	// get the whole set of strategies
     	
     	//TODO Needs to refer to EnergyProducer.

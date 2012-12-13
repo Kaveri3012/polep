@@ -56,9 +56,4 @@ public class ClearingPoint {
         return " market: " + abstractMarket + ", price " + price + ", volume " + volume + ", time " + time;
     }
 
-    @Transactional
-    public void updateAbstractMarket(EnergyMarket market) {
-        setAbstractMarket(market);
-    }
-
 }

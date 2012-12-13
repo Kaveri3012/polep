@@ -55,7 +55,7 @@ public class BidIntoMarketRoleTest {
     	plant.setThisFuel(fuel);
     	plant.setEfficiency(0.33);
     	plant.persist(); // Saves it to the database
-    	plant.getMarginalCost();
+    	plant.calculateMarginalCost();
     	
     	Set<PowerPlant> setPowerPlant = producer.getPowerPlantSet();
     	setPowerPlant.add(plant);
