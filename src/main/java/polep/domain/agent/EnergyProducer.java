@@ -27,6 +27,7 @@ import agentspring.simulation.SimulationParameter;
 @NodeEntity
 public class EnergyProducer extends AbstractAgent implements Agent {
 	
+	//TODO: These should be moved out of this class, as well as their getters and setters.
 	EnergyProducer producer1 = new EnergyProducer();
 	EnergyProducer producer2 = new EnergyProducer();
 	EnergyProducer producer3 = new EnergyProducer();
@@ -38,6 +39,9 @@ public class EnergyProducer extends AbstractAgent implements Agent {
     @SimulationParameter(label = "Agents Cash Balance", from = -1e5, to = 1e5)
     private double cash;
     
+    /* TODO: Thhis should be defined like the Set<PowerPlant> above. The correct
+     * class it should refer to is polep.domain.market.BiddingStrategy. Sorry for the
+     * confusion. */
  	@SimulationParameter(label = "The set of strategies", from = 0, to = 1)
     private double setOfStrategies[];
     // one set of strategies   
@@ -46,10 +50,12 @@ public class EnergyProducer extends AbstractAgent implements Agent {
     private double strategy[];
     // 9 strategies
     
+    /* TODO: see setOfStrategies above. The correct class is polep.domain.market.BiddingStrategy */
     @SimulationParameter(label = "The strategy element", from = 0, to = 5)
     private double strategyElement;
     // contains the powerplant 1,2,3 and the three percentages of withholdment
     
+    // TODO: see above, same class.
     @SimulationParameter(label = "The chosen strategy", from = 0, to = 1)
     private double chosenStrategy[];
     // chosen strategy at the moment

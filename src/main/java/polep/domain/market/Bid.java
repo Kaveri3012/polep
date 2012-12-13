@@ -24,6 +24,9 @@ public class Bid {
 	public static int PARTLY_ACCEPTED = 2;
 	public static int ACCEPTED = 3;
 
+	/* TODO: PolepAgent doesn't exist, and we have only supply bids by EnergyProducers. 
+	 * We could do it differently though, if you think it makes it easier to implement.
+	 */
 	@RelatedTo(type = "BIDDER", elementClass = PolepAgent.class, direction = Direction.INCOMING)
 	private PolepAgent bidder;
 

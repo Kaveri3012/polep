@@ -11,6 +11,9 @@ public class BiddingStrategy {
 
 	private double propensity;
 	private double probability;
+	/* TODO The chosenStrategy should be defined in EnergyProducer, and refer to a whole Strategy
+	 * not only one strategyElement.
+	 */
 	StrategyElement chosenStrategy = new StrategyElement(); 
 	
 	@RelatedTo(type = "STRATEGY_ELEMENT", elementClass = StrategyElement.class, direction=Direction.OUTGOING)

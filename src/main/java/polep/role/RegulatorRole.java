@@ -33,6 +33,7 @@ public abstract class RegulatorRole extends AbstractRole<Regulator> {
 	@Autowired
 	EnergyProducerRepository energyProducerRepository;
 
+	//TODO Some of this shouldn't be here.
 	@Autowired
 	BidRepository bidRepository;
 	@RelatedTo(type = "OWNS", elementClass = PowerPlant.class, direction = Direction.OUTGOING)
@@ -44,12 +45,16 @@ public abstract class RegulatorRole extends AbstractRole<Regulator> {
 
 
 		int counter = 0;
+		/* TODO check if this works with a JUNit test. There also some predefined
+		 * methods in every repository which might be useful.
+		 */
 		int x = energyProducerRepository.listofpowerplantowners().size();
 		int probability[] = new int[x];
 		double Fine = regulator.getFine();
 		double Capacity;
 
 		for (counter = 0; counter <= x; counter++){
+			//TODO We need to substitute this with a real function.
 			BiasedCoin coin = new BiasedCoin();
 			energyProducerRepository.listofpowerplantowners().get(counter);
 
@@ -61,6 +66,10 @@ public abstract class RegulatorRole extends AbstractRole<Regulator> {
 				break;
 			}
 			else if (result <= 0.5){
+				/* TODO: In principal correct logic, but the for-loop needs to be adjusted. 
+				 * If you have a List of something (powerplants, energyproducers) you can iterate through them with
+				 * a for loop. An example is in BidIntoMarketRole.
+				 */
 				for (int i = 0; i<= energyProducerRepository.listofpowerplantowners().get(counter).getPowerPlantSet().size();i++){
 					Capacity = Capacity + energyProducerRepository.listofpowerplantowners().get(counter).getPowerPlantSet().getCapacity(i);
 

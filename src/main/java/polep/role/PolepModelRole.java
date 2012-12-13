@@ -16,6 +16,8 @@ public class PolepModelRole extends AbstractRole<PolepModel> implements Role<Pol
     static Logger logger = LoggerFactory.getLogger(PolepModelRole.class);
 
     public void act(PolepModel model){
+    	
+    	//TODO: We need to make this to real code.
 	
 
 /*    	

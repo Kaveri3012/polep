@@ -43,6 +43,13 @@ public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implem
 		
 		cash = prevCash;
 		// set cash is prevCash
+		
+		// TODO: getClearingPrice() needs to be switched to a repository
+		
+		/* TODO: We need to think about how we factor in the clearing volume,
+		 * since currently all plants are fully dispatched, if if some bids are only
+		 * partly accepted.
+		 */
 										
 		for (PowerPlant plant : producer.getPowerPlantSet()){ 
 		

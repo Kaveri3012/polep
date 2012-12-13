@@ -1,6 +1,6 @@
 package polep.role;
 
-
+//TODO: These class seems to be superfluos, since we also have a Regulator role.
 
 import polep.domain.technology.PowerPlant;
 import agentspring.role.AbstractRole;

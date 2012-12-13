@@ -23,13 +23,13 @@ public class BidIntoMarketRole  extends AbstractRole<EnergyProducer> implements 
 		double realVolume;
 		double marginalCost;
 
-
-		//how to access powerPlantSet of a certain energyproducer? 
-
-
 		for (PowerPlant plant : producer.getPowerPlantSet()){
 
 			Bid bidPerPowerPlant = new Bid(); 
+			/* TODO These need not be newly defined, but called from the
+			 * producer instance.
+			 */
+			
 			//BiddingStrategy thisBiddingStrategy = new BiddingStrategy(); 
 			//StrategyElement chosenSE = new StrategyElement();
 

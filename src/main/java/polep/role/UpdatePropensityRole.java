@@ -45,6 +45,8 @@ public class UpdatePropensityRole extends AbstractRole<EnergyProducer> implement
     @Transactional
     public void act(EnergyProducer producer){
     	
+    	//TODO Once we clearly defined a common Strategy-Implementation, some things need to be fixed
+    	// here.
     	double recencyParameter; // from producer
     	double experimentationParameter; // from producer
     	double strategy[]; // from producer
@@ -56,9 +58,11 @@ public class UpdatePropensityRole extends AbstractRole<EnergyProducer> implement
     	double updatePropensity;
     	double reward;
     	
+    	//TODO this needs to come out of the energyProducer via a getter-setter method.
     	Set<StrategyElement> allStrategies = BiddingStrategy.getSetOfStrategyElements();
     	// get the whole set of strategies
     	
+    	//TODO Needs to refer to EnergyProducer.
     	chosenStrategy = BiddingStrategy.getChosenStrategy();
     	// get chosen strategy, is this correctly defined in the bidding strategy?
     	
@@ -73,7 +77,8 @@ public class UpdatePropensityRole extends AbstractRole<EnergyProducer> implement
     	
     	// to do get strategyReward from ClearingMarketRole / regulator = Cash - prevCash to be defined		
     	
-    	
+    	//TODO Looks correct, needs to be adjusted once we adjusted the whole
+    	// BiddingStrategy confusion.
     	for (double i = 0; i < setOfStrategies.length; i++) {
     	// iterate for all strategies if the strategy is the chosen strategy 
     				

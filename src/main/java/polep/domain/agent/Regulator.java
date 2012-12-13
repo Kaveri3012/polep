@@ -12,6 +12,7 @@ import agentspring.simulation.SimulationParameter;
 @NodeEntity
 public class Regulator extends AbstractAgent implements Agent {
 
+	//TODO: There are still some properties missing (as compared to mind map).
     
     @SimulationParameter(label = "Agents Cash Balance", from = 1, to = 100)
     double cash;
