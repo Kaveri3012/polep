@@ -1,10 +1,15 @@
 package polep.role;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import polep.domain.agent.EnergyProducer;
+import polep.domain.market.Bid;
+import polep.domain.market.BiddingStrategy;
 import polep.domain.market.EnergyMarket;
+import polep.domain.market.PowerPlantWithholdment;
 import polep.domain.technology.PowerPlant;
 import polep.repository.BidRepository;
 import polep.repository.EnergyProducerRepository;
@@ -24,63 +29,79 @@ import agentspring.role.Role;
 
 public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implements Role<EnergyProducer> {
 
+	public double prevCash;
+	public double revenue;
+	
 	@Autowired
 	PowerPlantRepository powerPlantRepository;
 	BidRepository bidRepository;
 	EnergyProducerRepository energyProducerRepository;
-	
+			
 	@Transactional
 	public void act(EnergyProducer producer){
 		
-		double marginalCost;
-		double realVolume;
-		double dispatchVolume = 0;
-		double clearingPrice;
-		double cash;
-		double revenuePerPowerPlant = 0;
-		double revenue = 0;
-		double prevCash = 0;
 		
-		cash = prevCash;
-		// set cash is prevCash
-		
-		// TODO: getClearingPrice() needs to be switched to a repository
-		
-		/* TODO: We need to think about how we factor in the clearing volume,
-		 * since currently all plants are fully dispatched, if if some bids are only
-		 * partly accepted.
-		 */
+		BiddingStrategy bs = producer.getChosenStrategy();
+		Set<PowerPlantWithholdment> sppw = bs.getSetOfPowerPlantWithholdments();
+							
+		for(PowerPlantWithholdment powerPlantWithholdment : sppw){
+			
+			Bid bidPerPowerPlant = new Bid();
+			double price = bidPerPowerPlant.getPrice();
+			double volume = bidPerPowerPlant.getVolume();
+			// get the volumes and prices
+						
+			EnergyMarket market = new EnergyMarket();
+			double clearingprice = market.getClearingPrice();
+			// get the clearing price
+			
+			double cash = producer.getCash();
+			cash = prevCash;
+			//get the cash
+						
+			if (clearingprice <= price) {
+				
+				revenue = volume * clearingprice;
+				cash = prevCash + revenue;
 										
-		for (PowerPlant plant : producer.getPowerPlantSet()){ 
-		
-			// define the plants who dispatch their power
-			marginalCost = plant.calculateMarginalCost();
-			clearingPrice = EnergyMarket.getClearingPrice();
-			realVolume = plant.getCapacity();
-			
-			if ( marginalCost <= clearingPrice ) {
-			
-			realVolume = dispatchVolume;
-			// if this is the case the bid is transformed to dispatch bid
+				if (clearingprice == price) {
+				
+				// define the fraction of demand that is dispatched, to do!	
+				revenue = volume * clearingprice;
+				cash = prevCash + revenue;
 					
-			}else {
+				}
+					
+			} else {
+				
+				revenue = 0 ; 
+				cash = prevCash + revenue;
+				
+			}
 			
-			realVolume = dispatchVolume;
-			dispatchVolume = 0;
-			// when this is the case, the bid is set to zero
+			bidPerPowerPlant.setTime(getCurrentTick());
+			bidPerPowerPlant.setBidder(producer);
 			
-			} 
-		}
-		
-		for (PowerPlant plant : producer.getPowerPlantSet()) {
-			
-			// define the revenue
-			clearingPrice = EnergyMarket.getClearingPrice();
-			revenuePerPowerPlant = dispatchVolume * clearingPrice;
-			revenue =+ revenuePerPowerPlant;
-		}
-		
-		// define the revenue per producer, how to that?
-		cash = prevCash + revenue ;
+		} 
 	}
-}
+
+	public double getPrevCash() {
+		return prevCash;
+	}
+
+	public void setPrevCash(double prevCash) {
+		this.prevCash = prevCash;
+	}
+
+	public double getRevenue() {
+		return revenue;
+	}
+
+	public void setRevenue(double revenue) {
+		this.revenue = revenue;
+	}
+}	
+		
+		
+		
+

@@ -3,16 +3,12 @@ package polep.role;
 
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import polep.domain.agent.EnergyProducer;
 import polep.domain.market.BiddingStrategy;
 import polep.domain.market.EnergyMarket;
-import polep.domain.market.PowerPlantWithholdment;
-import polep.domain.technology.PowerPlant;
 import polep.repository.BidRepository;
 import polep.repository.EnergyProducerRepository;
 import polep.repository.PowerPlantRepository;
@@ -35,64 +31,46 @@ import agentspring.role.ScriptComponent;
 @ScriptComponent
 public class UpdatePropensityRole extends AbstractRole<EnergyProducer> implements Role<EnergyProducer> {
 	
-    static Logger logger = LoggerFactory.getLogger(UpdatePropensityRole.class);
-      
+	Set<BiddingStrategy> strategySet;
+	public double experiencefunction;
+	
     @Autowired
     PowerPlantRepository powerPlantRepository;
 	BidRepository bidRepository;
 	EnergyProducerRepository energyProducerRepository;
   
     @Transactional
-    public void act(EnergyProducer producer){
+    public void act(EnergyProducer producer){ 	
+    	   	
+    	double experimentationParameter = producer.getExperimentationParameter();
+    	double recencyParameter = producer.getRecencyParameter();	
+    	double cash = producer.getCash();
     	
-    	//TODO Once we clearly defined a common Strategy-Implementation, some things need to be fixed
-    	// here.
-    	double recencyParameter; // from producer
-    	double experimentationParameter; // from producer
-    	double strategy[]; // from producer
-    	Set<PowerPlantWithholdment> setOfStrategyElements; // from producer
-    	double setOfStrategies[];
-       	double chosenStrategy[]; // from bidding strategy
-    	double propensity; // from bidding strategy
-    	double experienceFunction;
-    	double updatePropensity;
-    	double reward;
+    	BiddingStrategy strategy = new BiddingStrategy();
+    	double propensity = strategy.getPropensity();
+    	 	
+    	DispatchPowerPlantRole dispatch = new DispatchPowerPlantRole();
+    	double prevCash = dispatch.getPrevCash() ;
     	
-    	//TODO this needs to come out of the energyProducer via a getter-setter method.
-    	Set<PowerPlantWithholdment> allStrategies = BiddingStrategy.getSetOfStrategyElements();
-    	// get the whole set of strategies
-    	
-    	//TODO Needs to refer to EnergyProducer.
-    	chosenStrategy = BiddingStrategy.getChosenStrategy();
-    	// get chosen strategy, is this correctly defined in the bidding strategy?
-    	
-    	experimentationParameter = producer.getExperimentationParameter();
-    	// get exp-parameter
-    	
-    	recencyParameter = producer.getRecencyParameter();
-    	// get rec-parameter
-    	
-    	propensity = BiddingStrategy.getPropensity();
-    	// get propensity
-    	
-    	// to do get strategyReward from ClearingMarketRole / regulator = Cash - prevCash to be defined		
-    	
-    	//TODO Looks correct, needs to be adjusted once we adjusted the whole
-    	// BiddingStrategy confusion.
-    	for (double i = 0; i < setOfStrategies.length; i++) {
-    	// iterate for all strategies if the strategy is the chosen strategy 
+    	BiddingStrategy chosenstrategy = producer.getChosenStrategy();
+		strategySet = producer.getBiddingStrategySet();
+		BiddingStrategy[] strategyArray = (BiddingStrategy[]) strategySet.toArray();
+		
+		for (double i = 0; i < strategyArray.length; i++) {
     				
-    		if (strategy = chosenStrategy)  {
+    		if (strategy == chosenstrategy)  {
         	
-    		experienceFunction = reward * (1-experimentationParameter); 
-        	updatePropensity.setPropensity((1-recencyParameter)*presentPropensity+experienceFunction); 
+    		experiencefunction = (cash-prevCash) * (1-experimentationParameter); 
+        	strategy.setPropensity((1-recencyParameter)*propensity+experiencefunction); 
         	
         	}
         	else {
-        	experienceFunction = reward * (experimentationParameter/(size(SetOfStrategyElements)-1)); 
-        	updatePropensity.setPropensity((1-recencyParameter)*presentPropensity+experienceFunction);
         	
-        	}   
-        } 
-    }		
-}
+        	experiencefunction = (cash-prevCash) * (experimentationParameter/(strategyArray.length-1)); 
+        	strategy.setPropensity((1-recencyParameter)*propensity+experiencefunction);
+
+        	}	
+		}	
+    }
+}    
+    
