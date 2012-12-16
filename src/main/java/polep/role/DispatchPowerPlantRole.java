@@ -29,6 +29,10 @@ import agentspring.role.Role;
 
 public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implements Role<EnergyProducer> {
 
+	/* TODO: Although you can do this, no permanent information can be stored in roles.
+	/ To make it easier to remember it might a good convention to only store variables
+	 * within the methods.
+	 */
 	public double prevCash;
 	public double revenue;
 	
@@ -40,6 +44,16 @@ public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implem
 	@Transactional
 	public void act(EnergyProducer producer){
 		
+		/* TODO: Hey, the clearing via the clearingPrice should work.
+		 * However, after thinking a bit about it, and looking at the
+		 * polep.domain.market.Bid class, I think we already have a 
+		 * solution via the bid status (ACCEPTED, PARTLY_ACCEPTED, etc.)
+		 * and also via the variable acceptedAmount. Just assume for now
+		 * that these are properly dealt with in the MarketClearingRole.
+		 * You could for example assume, that via 
+		 * double totalAmount = bidRespository.calculateTotalAcceptedAmountforEnergyProducerInTimeStep(producer, getCurrentTick())
+		 * you have the total accepted amount, and that you have a marginal cost sorted power plant list: Iterable<PowerPlant> marginalCostSortedPowerPlants.
+		 */
 		
 		BiddingStrategy bs = producer.getChosenStrategy();
 		Set<PowerPlantWithholdment> sppw = bs.getSetOfPowerPlantWithholdments();
@@ -85,6 +99,8 @@ public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implem
 		} 
 	}
 
+	
+	//TODO: You should never ever have getters/setters in a role class.
 	public double getPrevCash() {
 		return prevCash;
 	}

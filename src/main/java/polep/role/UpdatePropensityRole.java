@@ -31,11 +31,14 @@ import agentspring.role.ScriptComponent;
 @ScriptComponent
 public class UpdatePropensityRole extends AbstractRole<EnergyProducer> implements Role<EnergyProducer> {
 	
+	/* TODO: As a convention it is better not to define variables outside of methods in
+	* role classes. */
 	Set<BiddingStrategy> strategySet;
 	public double experiencefunction;
 	
     @Autowired
     PowerPlantRepository powerPlantRepository;
+    //TODO: These need to be @Autowired as well
 	BidRepository bidRepository;
 	EnergyProducerRepository energyProducerRepository;
   
@@ -48,14 +51,20 @@ public class UpdatePropensityRole extends AbstractRole<EnergyProducer> implement
     	
     	BiddingStrategy strategy = new BiddingStrategy();
     	double propensity = strategy.getPropensity();
-    	 	
+    	
+    	/* TODO: See remark in DispatchPowerPlantRole, you don't store information in
+    	/ roles, they are only used for behaviour description. See if you can find a class
+    	 * in the polep.domain packages which has this information stored.
+    	 */
     	DispatchPowerPlantRole dispatch = new DispatchPowerPlantRole();
     	double prevCash = dispatch.getPrevCash() ;
     	
     	BiddingStrategy chosenstrategy = producer.getChosenStrategy();
 		strategySet = producer.getBiddingStrategySet();
 		BiddingStrategy[] strategyArray = (BiddingStrategy[]) strategySet.toArray();
-		
+		/* TODO: This works, but it is easier to call:
+		* for(Strategy strategy : strategySet)
+		* in that case you need to exchange the strategyArray.length function though */
 		for (double i = 0; i < strategyArray.length; i++) {
     				
     		if (strategy == chosenstrategy)  {
