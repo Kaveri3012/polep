@@ -9,7 +9,6 @@ import polep.domain.agent.EnergyProducer;
 import polep.domain.market.Bid;
 import polep.domain.market.BiddingStrategy;
 import polep.domain.market.EnergyMarket;
-import polep.domain.market.PowerPlantWithholdment;
 import polep.domain.technology.PowerPlant;
 import polep.repository.BidRepository;
 import polep.repository.EnergyProducerRepository;
@@ -28,19 +27,16 @@ import agentspring.role.Role;
  */
 
 public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implements Role<EnergyProducer> {
-
-	/* TODO: Although you can do this, no permanent information can be stored in roles.
-	/ To make it easier to remember it might a good convention to only store variables
-	 * within the methods.
-	 */
-	public double prevCash;
-	public double revenue;
 	
 	@Autowired
 	PowerPlantRepository powerPlantRepository;
+	
+	@Autowired
 	BidRepository bidRepository;
+	
+	@Autowired
 	EnergyProducerRepository energyProducerRepository;
-			
+	
 	@Transactional
 	public void act(EnergyProducer producer){
 		
@@ -55,68 +51,59 @@ public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implem
 		 * you have the total accepted amount, and that you have a marginal cost sorted power plant list: Iterable<PowerPlant> marginalCostSortedPowerPlants.
 		 */
 		
-		BiddingStrategy bs = producer.getChosenStrategy();
-		Set<PowerPlantWithholdment> sppw = bs.getSetOfPowerPlantWithholdments();
+		acceptedAmount = bidRespository.calculateAcceptedVolumeofBidInTimeStep(bid, getCurrentTick());
+		// get accepted amount per bid?
+		
+		Iterable<Bid> sortedListofBidPairsPerProducer = bidRepository.findOffersForMarketForTime(producer, getCurrentTick());
+		// gives sorted list of bids per producer? list to be defined in repository
+				
+		EnergyMarket market = new EnergyMarket();
+    	double clearingprice = market.getClearingPrice();
+	
+		
+		for (Bid currentBid:sortedListofBidPairsPerProducer){
+			
+			double revenue = producer.getRevenue();
+			double prevCash = producer.getPrevCash();
+			double cash = producer.getCash();	
+					
 							
-		for(PowerPlantWithholdment powerPlantWithholdment : sppw){
-			
-			Bid bidPerPowerPlant = new Bid();
-			double price = bidPerPowerPlant.getPrice();
-			double volume = bidPerPowerPlant.getVolume();
-			// get the volumes and prices
-						
-			EnergyMarket market = new EnergyMarket();
-			double clearingprice = market.getClearingPrice();
-			// get the clearing price
-			
-			double cash = producer.getCash();
-			cash = prevCash;
-			//get the cash
-						
-			if (clearingprice <= price) {
+				if (currentBid.getStatus() == Bid.ACCEPTED){
+					
+					revenue = acceptedAmount * clearingprice;
+					cash = prevCash + revenue;
 				
-				revenue = volume * clearingprice;
-				cash = prevCash + revenue;
-										
-				if (clearingprice == price) {
+				} 
+
+
+				if (currentBid.getStatus() == Bid.PARTLY_ACCEPTED){
+					
+					revenue = acceptedAmount * clearingprice;
+					cash = prevCash + revenue;
+		
+				}
+
+				else {
 				
-				// define the fraction of demand that is dispatched, to do!	
-				revenue = volume * clearingprice;
-				cash = prevCash + revenue;
+					revenue = 0;
+					cash = prevCash + revenue;
 					
 				}
-					
-			} else {
-				
-				revenue = 0 ; 
-				cash = prevCash + revenue;
-				
-			}
-			
-			bidPerPowerPlant.setTime(getCurrentTick());
-			bidPerPowerPlant.setBidder(producer);
-			
-		} 
+			}	
+
 	}
+	
+	// save cash in repository?
+	// save dispatched bids?
+	
+}			
+		
+		
+		
+	
 
 	
-	//TODO: You should never ever have getters/setters in a role class.
-	public double getPrevCash() {
-		return prevCash;
-	}
 
-	public void setPrevCash(double prevCash) {
-		this.prevCash = prevCash;
-	}
-
-	public double getRevenue() {
-		return revenue;
-	}
-
-	public void setRevenue(double revenue) {
-		this.revenue = revenue;
-	}
-}	
 		
 		
 		

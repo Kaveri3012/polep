@@ -8,13 +8,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import polep.domain.agent.EnergyProducer;
 import polep.domain.market.BiddingStrategy;
-import polep.domain.market.EnergyMarket;
+import polep.domain.market.PowerPlantWithholdment;
 import polep.repository.BidRepository;
 import polep.repository.EnergyProducerRepository;
 import polep.repository.PowerPlantRepository;
 import agentspring.role.AbstractRole;
 import agentspring.role.Role;
 import agentspring.role.ScriptComponent;
+
+//import com.google.common.collect.CustomConcurrentHashMap.Strategy;
 
 /**
  * @author RubenVerweij
@@ -33,14 +35,17 @@ public class UpdatePropensityRole extends AbstractRole<EnergyProducer> implement
 	
 	/* TODO: As a convention it is better not to define variables outside of methods in
 	* role classes. */
-	Set<BiddingStrategy> strategySet;
-	public double experiencefunction;
 	
+	Set<BiddingStrategy> strategySet;
+		
     @Autowired
     PowerPlantRepository powerPlantRepository;
-    //TODO: These need to be @Autowired as well
-	BidRepository bidRepository;
-	EnergyProducerRepository energyProducerRepository;
+    
+    @Autowired
+    BidRepository bidRepository;
+	
+    @Autowired
+    EnergyProducerRepository energyProducerRepository;
   
     @Transactional
     public void act(EnergyProducer producer){ 	
@@ -48,37 +53,37 @@ public class UpdatePropensityRole extends AbstractRole<EnergyProducer> implement
     	double experimentationParameter = producer.getExperimentationParameter();
     	double recencyParameter = producer.getRecencyParameter();	
     	double cash = producer.getCash();
+    	double experiencefunction = producer.getExperiencefunction();
     	
-    	BiddingStrategy strategy = new BiddingStrategy();
-    	double propensity = strategy.getPropensity();
-    	
-    	/* TODO: See remark in DispatchPowerPlantRole, you don't store information in
-    	/ roles, they are only used for behaviour description. See if you can find a class
-    	 * in the polep.domain packages which has this information stored.
-    	 */
-    	DispatchPowerPlantRole dispatch = new DispatchPowerPlantRole();
-    	double prevCash = dispatch.getPrevCash() ;
-    	
+    	Set<BiddingStrategy> strategy = producer.getBiddingStrategySet();
+    	double propensity = ((BiddingStrategy) strategy).getPropensity();	
+    	  		   	  	
+    	double prevCash = producer.getPrevCash() ;
     	BiddingStrategy chosenstrategy = producer.getChosenStrategy();
 		strategySet = producer.getBiddingStrategySet();
 		BiddingStrategy[] strategyArray = (BiddingStrategy[]) strategySet.toArray();
+		
 		/* TODO: This works, but it is easier to call:
 		* for(Strategy strategy : strategySet)
 		* in that case you need to exchange the strategyArray.length function though */
-		for (double i = 0; i < strategyArray.length; i++) {
-    				
+		
+		for (double i = 0; i < strategyArray.length; i++){ 
+		   				
     		if (strategy == chosenstrategy)  {
         	
     		experiencefunction = (cash-prevCash) * (1-experimentationParameter); 
-        	strategy.setPropensity((1-recencyParameter)*propensity+experiencefunction); 
+        	((BiddingStrategy) strategy).setPropensity((1-recencyParameter)*propensity+experiencefunction); 
         	
         	}
         	else {
         	
         	experiencefunction = (cash-prevCash) * (experimentationParameter/(strategyArray.length-1)); 
-        	strategy.setPropensity((1-recencyParameter)*propensity+experiencefunction);
+        	((BiddingStrategy) strategy).setPropensity((1-recencyParameter)*propensity+experiencefunction);
 
-        	}	
+        	}
+    		
+    		// should we save the propensities in a repository?
+    		
 		}	
     }
 }    

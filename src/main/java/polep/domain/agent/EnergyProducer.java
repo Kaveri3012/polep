@@ -49,8 +49,37 @@ public class EnergyProducer extends AbstractAgent implements Agent {
     @RelatedTo(type = "PRODUCER_CHOSENSTRATEGY", elementClass = BiddingStrategy.class, direction =  Direction.OUTGOING)
     private BiddingStrategy chosenStrategy; 
     
+    public double prevCash;
     
-    public Set<BiddingStrategy> getBiddingStrategySet() {
+	public double revenue;
+    
+	public double experiencefunction;
+    
+    public double getExperiencefunction() {
+		return experiencefunction;
+	}
+
+	public void setExperiencefunction(double experiencefunction) {
+		this.experiencefunction = experiencefunction;
+	}
+
+	public double getPrevCash() {
+		return prevCash;
+	}
+
+	public void setPrevCash(double prevCash) {
+		this.prevCash = prevCash;
+	}
+
+	public double getRevenue() {
+		return revenue;
+	}
+
+	public void setRevenue(double revenue) {
+		this.revenue = revenue;
+	}
+
+	public Set<BiddingStrategy> getBiddingStrategySet() {
 		return biddingStrategySet;
 	}
 
