@@ -50,7 +50,7 @@ public abstract class RegulatorRole extends AbstractRole<Regulator> {
 		 */
 		int x = energyProducerRepository.listofpowerplantowners().size();
 		int probability[] = new int[x];
-		double Fine = regulator.getFine();
+		double fine = regulator.getFine();
 		double Capacity;
 
 		for (counter = 0; counter <= x; counter++){

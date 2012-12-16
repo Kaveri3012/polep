@@ -33,7 +33,7 @@ public class Bid {
 	private long time;
 	private int status;
 
-	private double percentageWithholdment;
+
 
 	public EnergyProducer getBidder() {
 		return bidder;
@@ -76,7 +76,15 @@ public class Bid {
 	}
 
 	
-	 @Override
+	 public double getAcceptedVolume() {
+		return acceptedVolume;
+	}
+
+	public void setAcceptedVolume(double acceptedVolume) {
+		this.acceptedVolume = acceptedVolume;
+	}
+
+	@Override
 	 public String toString() {
 		 return  " price: " + getPrice() + " amount: " + getVolume();
 	 }
