@@ -55,35 +55,27 @@ public class UpdatePropensityRole extends AbstractRole<EnergyProducer> implement
     	double recencyParameter = producer.getRecencyParameter();	
     	double cash = producer.getCash();
     	double experiencefunction = producer.getExperiencefunction();
-    	
-    	Set<BiddingStrategy> strategy = producer.getBiddingStrategySet();
-    	double propensity = ((BiddingStrategy) strategy).getPropensity();	
-    	  		   	  	
+    	   	  		   	  	
     	double prevCash = producer.getPrevCash() ;
     	BiddingStrategy chosenstrategy = producer.getChosenStrategy();
 		strategySet = producer.getBiddingStrategySet();
-		BiddingStrategy[] strategyArray = (BiddingStrategy[]) strategySet.toArray();
 		
-		/* TODO: This works, but it is easier to call:
-		* for(Strategy strategy : strategySet)
-		* in that case you need to exchange the strategyArray.length function though */
 		
-		for (double i = 0; i < strategyArray.length; i++){ 
+		for(BiddingStrategy strategy : strategySet){ 
 		   				
     		if (strategy == chosenstrategy)  {
         	
     		experiencefunction = (cash-prevCash) * (1-experimentationParameter); 
-        	((BiddingStrategy) strategy).setPropensity((1-recencyParameter)*propensity+experiencefunction); 
+        	strategy.setPropensity((1-recencyParameter)*strategy.getPropensity()+experiencefunction); 
         	
         	}
         	else {
         	
-        	experiencefunction = (cash-prevCash) * (experimentationParameter/(strategyArray.length-1)); 
-        	((BiddingStrategy) strategy).setPropensity((1-recencyParameter)*propensity+experiencefunction);
+        	experiencefunction = (cash-prevCash) * (experimentationParameter/(strategySet.size()-1)); 
+        	strategy.setPropensity((1-recencyParameter)*strategy.getPropensity()+experiencefunction);
 
         	}
     		
-    		// should we save the propensities in a repository?
     		
 		}	
     }

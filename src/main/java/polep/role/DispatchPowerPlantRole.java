@@ -1,16 +1,13 @@
 package polep.role;
 
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import polep.domain.agent.EnergyProducer;
 import polep.domain.market.Bid;
-import polep.domain.market.BiddingStrategy;
-import polep.domain.market.EnergyMarket;
 import polep.domain.technology.PowerPlant;
 import polep.repository.BidRepository;
+import polep.repository.ClearingPointRepository;
 import polep.repository.EnergyProducerRepository;
 import polep.repository.PowerPlantRepository;
 import agentspring.role.AbstractRole;
@@ -38,6 +35,9 @@ public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implem
 	@Autowired
 	EnergyProducerRepository energyProducerRepository;
 	
+	@Autowired
+	ClearingPointRepository clearingPointRepository; 
+	
 	@Transactional
 	public void act(EnergyProducer producer){
 		
@@ -52,50 +52,66 @@ public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implem
 		 * you have the total accepted amount, and that you have a marginal cost sorted power plant list: Iterable<PowerPlant> marginalCostSortedPowerPlants.
 		 */
 		
-		acceptedAmount = bidRespository.calculateAcceptedVolumeofBidInTimeStep(bid, getCurrentTick());
-		// get accepted amount per bid?
-		
-		Iterable<Bid> sortedListofBidPairsPerProducer = bidRepository.findOffersForMarketForTime(producer, getCurrentTick());
+		Iterable<Bid> allBids = bidRepository.findAllBidsPerProducerForTime(producer, getCurrentTick());
 		// gives sorted list of bids per producer? list to be defined in repository
-				
-		EnergyMarket market = new EnergyMarket();
-    	double clearingprice = market.getClearingPrice();
-	
 		
-		for (Bid currentBid:sortedListofBidPairsPerProducer){
+
+		double clearingPrice = clearingPointRepository.findTheOneClearingPriceForTime(getCurrentTick());
+				
+		// getting the revenues		
+		for (Bid currentBid:allBids){
 			
 			double revenue = producer.getRevenue();
 			double prevCash = producer.getPrevCash();
 			double cash = producer.getCash();	
-					
+							
+			producer.setTotalAcceptedVolume(currentBid.getVolume()+producer.getTotalAcceptedVolume());		
 							
 				if (currentBid.getStatus() == Bid.ACCEPTED){
 					
-					revenue = acceptedAmount * clearingprice;
-					cash = prevCash + revenue;
-				
+					revenue = currentBid.getAcceptedVolume() * clearingPrice;
+					producer.setCash(prevCash + revenue);
+							
 				} 
 
 
 				if (currentBid.getStatus() == Bid.PARTLY_ACCEPTED){
 					
-					revenue = acceptedAmount * clearingprice;
+					revenue = currentBid.getAcceptedVolume() * clearingPrice;
 					cash = prevCash + revenue;
 		
 				}
 
 				else {
 				
-					revenue = 0;
-					cash = prevCash + revenue;
-					
+										
 				}
 			}	
+		
+		// should be ordered according to marginal costs
+		Iterable<PowerPlant> allPlants = powerPlantRepository.findAllSortedPlantsPerProducerForTime(producer, getCurrentTick());
+		
+		// physical dispatching 
+		
+		double totalCost = producer.getTotalCost();
+		producer.getTotalAcceptedVolume();
+		
+		for (PowerPlant plant:allPlants){
+		
+			if()
+			totalCost = plant.calculateMarginalCost();
+			
+			
+			
+		//for (PowerPlantDispatchPlan plan : reps.powerPlantDispatchPlanRepository
+        //.findAllAcceptedPowerPlantDispatchPlansForMarketSegmentAndTime(esm, segment, getCurrentTick())) {
 
+        //reps.nonTransactionalCreateRepository.createCashFlow(esm, plan.getBidder(), plan.getAcceptedAmount() * scp.getPrice()
+        //* segment.getLengthInHours(), CashFlow.ELECTRICITY_SPOT, getCurrentTick(), plan.getPowerPlant());	
+		
 	}
 	
-	// save cash in repository?
-	// save dispatched bids?
+	}	
 	
 }			
 		
