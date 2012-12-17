@@ -25,6 +25,8 @@ import agentspring.role.Role;
 
 public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implements Role<EnergyProducer> {
 	
+	private double dispatchedVolume;
+	
 	@Autowired
 	PowerPlantRepository powerPlantRepository;
 	
@@ -77,7 +79,7 @@ public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implem
 				if (currentBid.getStatus() == Bid.PARTLY_ACCEPTED){
 					
 					revenue = currentBid.getAcceptedVolume() * clearingPrice;
-					cash = prevCash + revenue;
+					producer.setCash(prevCash + revenue);
 		
 				}
 
@@ -91,25 +93,33 @@ public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implem
 		Iterable<PowerPlant> allPlants = powerPlantRepository.findAllSortedPlantsPerProducerForTime(producer, getCurrentTick());
 		
 		// physical dispatching 
-		
 		double totalCost = producer.getTotalCost();
+		double cash = producer.getCash();
 		producer.getTotalAcceptedVolume();
 		
 		for (PowerPlant plant:allPlants){
 		
-			if()
-			totalCost = plant.calculateMarginalCost();
+			if( plant.getCapacity() < producer.getTotalAcceptedVolume()){
 			
+			dispatchedVolume = plant.getCapacity();
+			producer.setTotalAcceptedVolume(producer.getTotalAcceptedVolume()-dispatchedVolume);
+			producer.setTotalCost(plant.calculateMarginalCost()*dispatchedVolume);
+									
+			}
+			if(plant.getCapacity() > producer.getTotalAcceptedVolume()){
 			
+			dispatchedVolume = producer.getTotalAcceptedVolume();
+			producer.setTotalCost(plant.calculateMarginalCost()*dispatchedVolume);
+			producer.setTotalAcceptedVolume(producer.getTotalAcceptedVolume()-dispatchedVolume);
+			// should be zero	
 			
-		//for (PowerPlantDispatchPlan plan : reps.powerPlantDispatchPlanRepository
-        //.findAllAcceptedPowerPlantDispatchPlansForMarketSegmentAndTime(esm, segment, getCurrentTick())) {
-
-        //reps.nonTransactionalCreateRepository.createCashFlow(esm, plan.getBidder(), plan.getAcceptedAmount() * scp.getPrice()
-        //* segment.getLengthInHours(), CashFlow.ELECTRICITY_SPOT, getCurrentTick(), plan.getPowerPlant());	
+			}
+			else{	
+			}
 		
-	}
-	
+		producer.setCash(cash - totalCost);
+			
+		}	
 	}	
 	
 }			
