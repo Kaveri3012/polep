@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import agentspring.role.AbstractRole;
+import agentspring.role.Role;
 import polep.domain.agent.EnergyProducer;
 import polep.domain.agent.Regulator;
 import polep.domain.technology.PowerPlant;
@@ -27,7 +28,7 @@ Regulator controls Powerplant owner:
 	Update Cash = Cash - Fine */
 
 
-public abstract class RegulatorRole extends AbstractRole<Regulator> {
+public abstract class RegulatorRole extends AbstractRole<Regulator> implements Role<Regulator> {
 
 
 	@Autowired
@@ -38,8 +39,8 @@ public abstract class RegulatorRole extends AbstractRole<Regulator> {
 	BidRepository bidRepository;
 	@RelatedTo(type = "OWNS", elementClass = PowerPlant.class, direction = Direction.OUTGOING)
 	private Set<PowerPlant> powerPlantSet;
-	@Transactional
-	public void act(EnergyProducer producer);
+
+	
 	@Transactional
 	public void act(Regulator regulator){
 
