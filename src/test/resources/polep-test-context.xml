@@ -1,26 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:neo4j="http://www.springframework.org/schema/data/neo4j"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:neo4j="http://www.springframework.org/schema/data/neo4j"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/data/neo4j http://www.springframework.org/schema/data/neo4j/spring-neo4j.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+		http://www.springframework.org/schema/data/neo4j http://www.springframework.org/schema/data/neo4j/spring-neo4j.xsd 
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-    <context:annotation-config/>
-    <context:spring-configured/>
-    <context:component-scan base-package="polep.role"/>
+	<context:annotation-config />
+	<context:spring-configured />
+	<!-- <context:load-time-weaver aspectj-weaving="on"/> -->
+	<!-- Enable the @AspectJ support -->
+	<aop:aspectj-autoproxy />
 
-    <neo4j:config graphDatabaseService="graphDatabaseService"/>
-    <neo4j:repositories base-package="polep.repository"/>
-    
-   	<!-- Edit the value to match the root package name of your model -->
- 	<bean class="agentspring.graphdb.NodeEntityHelper">
- 	   <property name="prefix" value="polep"/>
- 	</bean>
+	<!-- Simulation Engine -->
+	<context:component-scan base-package="agentspring" />
+	<context:component-scan base-package="agentspring.simulation" />
+	<context:component-scan base-package="agentspring.lod" />
 
-    <bean id="graphDatabaseService" class="org.neo4j.test.ImpermanentGraphDatabase" destroy-method="shutdown"/>
+	<!-- ===== Domain Behaviors ========= -->
+	<!-- Edit the value to match the package name of your roles -->
+	<context:component-scan base-package="polep.role" />
+	<context:component-scan base-package="polep.repository" />
 
-    <tx:annotation-driven mode="proxy" transaction-manager="transactionManager"/>
+	<neo4j:config graphDatabaseService="graphDbService" />
+	<neo4j:repositories base-package="polep.repository" />
+
+	<!-- Edit the value to match the root package name of your model -->
+	<bean class="agentspring.graphdb.NodeEntityHelper">
+		<property name="prefix" value="polep" />
+	</bean>
+
+	<bean id="graphDbService" class="org.neo4j.test.ImpermanentGraphDatabase"
+		destroy-method="shutdown" />
+
+
+	<!-- TEST WORLD -->
+	<tx:annotation-driven mode="aspectj"
+		transaction-manager="transactionManager" />
+	<!-- AspectJ driven execution inspector -->
+	<!-- <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/> -->
+	<!-- AspectJ driven execution inspector -->
+	<bean id="executionInspector" class="agentspring.util.ExecutionInspector" />
+
 </beans>
+  

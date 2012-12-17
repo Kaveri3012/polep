@@ -14,6 +14,7 @@ import polep.repository.EnergyProducerRepository;
 import polep.repository.PowerPlantRepository;
 import agentspring.role.AbstractRole;
 import agentspring.role.Role;
+import agentspring.role.RoleComponent;
 import agentspring.role.ScriptComponent;
 
 //import com.google.common.collect.CustomConcurrentHashMap.Strategy;
@@ -30,7 +31,7 @@ import agentspring.role.ScriptComponent;
  * Ej(epsilon,k,t) = rk(t) [ epsilon/(N-1) ]			if j != k
  **/
  
-@ScriptComponent
+@RoleComponent
 public class UpdatePropensityRole extends AbstractRole<EnergyProducer> implements Role<EnergyProducer> {
 	
 	/* TODO: As a convention it is better not to define variables outside of methods in

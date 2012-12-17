@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import agentspring.role.AbstractRole;
 import agentspring.role.Role;
+import agentspring.role.RoleComponent;
 import polep.domain.agent.EnergyProducer;
 import polep.domain.agent.Regulator;
 import polep.domain.technology.PowerPlant;
@@ -27,8 +28,8 @@ Regulator controls Powerplant owner:
 	Fine is property of regulator
 	Update Cash = Cash - Fine */
 
-
-public abstract class RegulatorRole extends AbstractRole<Regulator> implements Role<Regulator> {
+@RoleComponent
+public class RegulatorRole extends AbstractRole<Regulator> implements Role<Regulator> {
 
 
 	@Autowired

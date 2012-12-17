@@ -28,12 +28,18 @@ public class PolepModelRole extends AbstractRole<PolepModel> implements Role<Pol
     @Autowired EnergyProducerRepository energyProducerRepository;
     
     
-    @Autowired PickStrategyRole pickStrategyRole;
-    @Autowired BidIntoMarketRole bidIntoMarketRole;
-    @Autowired ClearSpotMarketRole clearSpotMarketRole;
-    @Autowired DispatchPowerPlantRole dispatchPowerPlantRole;
-    @Autowired RegulatorRole regulatorRole;
-    @Autowired UpdatePropensityRole updatePropensityRole;
+    @Autowired 
+    PickStrategyRole pickStrategyRole;
+    @Autowired 
+    BidIntoMarketRole bidIntoMarketRole;
+    @Autowired 
+    ClearSpotMarketRole clearSpotMarketRole;
+    @Autowired 
+    DispatchPowerPlantRole dispatchPowerPlantRole;
+    @Autowired 
+    RegulatorRole regulatorRole;
+    @Autowired 
+    UpdatePropensityRole updatePropensityRole;
     
 
     public void act(PolepModel model){

@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import agentspring.role.AbstractRole;
 import agentspring.role.Role;
+import agentspring.role.RoleComponent;
 import polep.domain.agent.EnergyProducer;
 import polep.domain.agent.PolepModel;
 import polep.domain.market.Bid;
@@ -19,8 +20,8 @@ import polep.repository.ClearingPointRepository;
  *
  * @param <T>
  */
-
-public abstract class ClearSpotMarketRole extends AbstractRole<EnergyMarket> implements Role<EnergyMarket> {
+@RoleComponent
+public class ClearSpotMarketRole extends AbstractRole<EnergyMarket> implements Role<EnergyMarket> {
 
 	@Autowired
 	BidRepository bidRepository;
@@ -28,6 +29,7 @@ public abstract class ClearSpotMarketRole extends AbstractRole<EnergyMarket> imp
 	@Autowired
 	ClearingPointRepository clearingPointRepository;
 
+	@Transactional
 	public void act (EnergyMarket market){
 
 		Iterable<Bid> sortedListofBidPairs = bidRepository.findOffersForMarketForTime(market, getCurrentTick());

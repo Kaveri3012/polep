@@ -16,6 +16,6 @@ GraphRepository<EnergyProducer> {
 	/*@Query(value = "g.v(owner).in('POWERPLANT_OWNER')", type = QueryType.Gremlin)
 	ArrayList<EnergyProducer> listofpowerplantowners();*/
 
-	@Query(value = "g.V.EnergyProducer", type = QueryType.Gremlin)
-	ArrayList<EnergyProducer> listofpowerplantowners();
+	//@Query(value = "g.V.EnergyProducer", type = QueryType.Gremlin)
+	//ArrayList<EnergyProducer> listofpowerplantowners();
 }

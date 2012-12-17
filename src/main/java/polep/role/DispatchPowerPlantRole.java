@@ -15,6 +15,7 @@ import polep.repository.EnergyProducerRepository;
 import polep.repository.PowerPlantRepository;
 import agentspring.role.AbstractRole;
 import agentspring.role.Role;
+import agentspring.role.RoleComponent;
 
 /**
  * @author RubenVerweij
@@ -25,7 +26,7 @@ import agentspring.role.Role;
  *Update cash = cash + Revenue (double)
  *Revenues  = ClearingPrice*Volume 
  */
-
+@RoleComponent
 public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implements Role<EnergyProducer> {
 	
 	@Autowired

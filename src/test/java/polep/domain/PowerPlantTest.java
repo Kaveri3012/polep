@@ -43,7 +43,7 @@ public class PowerPlantTest {
     	fuel.setPrice(20);
     	fuel.persist(); // Saves it to the database
     	plant.setCapacity(500);
-    	plant.setThisFuel(fuel);
+    	plant.setFuel(fuel);
     	plant.setEfficiency(0.33);
     	plant.persist(); // Saves it to the database
     	
@@ -51,7 +51,7 @@ public class PowerPlantTest {
     	
     	assertEquals("Check if plants are equal if template.createNodeAs: ", 1, template.count(PowerPlant.class));
     	assertTrue(plantFromDB.getCapacity() == 500);
-    	assertTrue(plantFromDB.getThisFuel().getPrice() == fuel.getPrice());
+    	assertTrue(plantFromDB.getFuel().getPrice() == fuel.getPrice());
     	assertTrue(plantFromDB.getEfficiency() == 0.33);
     	//Calculate marginal cost = 20/0.33 = 60.61
     	assertEquals(60.61, plantFromDB.calculateMarginalCost(), 0.05);
