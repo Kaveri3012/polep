@@ -22,21 +22,18 @@ import polep.repository.BidRepository;
 import polep.repository.EnergyProducerRepository;
 import polep.repository.PowerPlantRepository;
 
-/**
- * @author JCRichstein
- * 
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"/polep-test-context.xml"})
 @Transactional
-public class BidIntoMarketRoleTest {
-    
-    @Autowired Neo4jOperations template;
+
+public class UpdatePropensityRoleTest {
+
+	@Autowired Neo4jOperations template;
     @Autowired PowerPlantRepository powerPlantRepository;
     @Autowired EnergyProducerRepository energyProducerRepository;
     @Autowired BidRepository bidRepository; 
-    
-    Logger logger = Logger.getLogger(BidIntoMarketRoleTest.class);
+	
+    Logger logger = Logger.getLogger(UpdatePropensityRoleTest.class);
 	
     @Before
     @Transactional
@@ -44,37 +41,10 @@ public class BidIntoMarketRoleTest {
     }
     
     @Test
-    public void checkBidIntoMarketFunctionality(){
-    	
-    	EnergyProducer producer = new EnergyProducer();
-    	PowerPlant plant = new PowerPlant();
-    	Fuel fuel = new Fuel();
-    	fuel.setPrice(20);
-    	fuel.persist(); // Saves it to the database
-    	plant.setCapacity(500);
-    	plant.setThisFuel(fuel);
-    	plant.setEfficiency(0.33);
-    	plant.persist(); // Saves it to the database
-    	plant.getMarginalCost();
-    	
-    	Set<PowerPlant> setPowerPlant = producer.getPowerPlantSet();
-    	setPowerPlant.add(plant);
-    	producer.persist();
-    	
-    	BidIntoMarketRole bidIntoMarketRole = new BidIntoMarketRole();
-    	bidIntoMarketRole.act(producer);
-    	
-    	
-    	Bid bid = bidRepository.findAll().iterator().next();
-    	
-    	logger.warn("Price: " + bid.getPrice());
-    	logger.warn("Volume: " + bid.getVolume());
-    	
-    	assertTrue(bid.getPrice()==20);
-    	assertTrue(bid.getVolume()==500);
-    	
-    	
-    }
-    
+    public static void main(String[] args) {
 
-}	
+	
+		
+	}
+
+}

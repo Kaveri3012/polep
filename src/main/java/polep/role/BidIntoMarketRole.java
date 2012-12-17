@@ -53,7 +53,7 @@ public class BidIntoMarketRole  extends AbstractRole<EnergyProducer> implements 
 			
 			Bid bidPerPowerPlant = new Bid();
 			bidPerPowerPlant.setVolume(powerPlantWithholdment.getPowerplant().getCapacity()*(1-powerPlantWithholdment.getWithholdment()));
-			bidPerPowerPlant.setPrice(powerPlantWithholdment.getPowerplant().calculateMarginalCost()*producer.getPriceMarkUp());
+			bidPerPowerPlant.setPrice(powerPlantWithholdment.getPowerplant().getMarginalCost()*producer.getPriceMarkUp());
 			bidPerPowerPlant.setStatus(Bid.SUBMITTED);
 			bidPerPowerPlant.setTime(getCurrentTick());
 			bidPerPowerPlant.setBidder(producer);

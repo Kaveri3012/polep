@@ -14,7 +14,7 @@ import polep.domain.technology.PowerPlant;
 public interface PowerPlantRepository extends GraphRepository<PowerPlant> {
 
 	
-	@Query(value = "g.v(producer).out('OWNS').filter{it.time==tick}.next", type = QueryType.Gremlin)
-	Iterable<PowerPlant> findAllSortedPlantsPerProducerForTime(@Param("producer") EnergyProducer producer, @Param("tick") long tick);
+	@Query(value = "g.v(producer).out('OWNS').sort{it.marginalCost}", type = QueryType.Gremlin)
+	Iterable<PowerPlant> findAllPerProducerSortedByMarginalCost(@Param("producer") EnergyProducer producer);
 	
 }

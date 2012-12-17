@@ -12,6 +12,7 @@ public class PowerPlant {
     private String nameTechnology;
     private double capacity;
     private double efficiency; 
+    private double marginalCost;
     
     @RelatedTo(type = "USES_FUEL", elementClass = Fuel.class, direction = Direction.OUTGOING)
     public Fuel fuel;
@@ -49,8 +50,12 @@ public class PowerPlant {
 		this.efficiency = efficiency;
 	}
 
-	public double calculateMarginalCost() {
-		return getFuel().getPrice()/getEfficiency();
+	public double getMarginalCost() {
+		return marginalCost;
 	}
+	
+	public void setMarginalCost(double marginalCost){
+		this.marginalCost = marginalCost;
+	} 
 
 }

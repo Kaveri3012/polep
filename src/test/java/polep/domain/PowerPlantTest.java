@@ -54,7 +54,7 @@ public class PowerPlantTest {
     	assertTrue(plantFromDB.getFuel().getPrice() == fuel.getPrice());
     	assertTrue(plantFromDB.getEfficiency() == 0.33);
     	//Calculate marginal cost = 20/0.33 = 60.61
-    	assertEquals(60.61, plantFromDB.calculateMarginalCost(), 0.05);
+    	assertEquals(60.61, plantFromDB.getMarginalCost(), 0.05);
     }
     
 

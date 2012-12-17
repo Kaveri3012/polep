@@ -26,7 +26,8 @@ import agentspring.role.RoleComponent;
 @RoleComponent
 public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implements Role<EnergyProducer> {
 	
-	private double dispatchedVolume;
+	
+	
 	
 	@Autowired
 	PowerPlantRepository powerPlantRepository;
@@ -59,15 +60,15 @@ public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implem
 		
 
 		double clearingPrice = clearingPointRepository.findTheOneClearingPriceForTime(getCurrentTick());
-				
+		double totalAcceptedVolume = 0;		
 		// getting the revenues		
 		for (Bid currentBid:allBids){
 			
 			double revenue = producer.getRevenue();
 			double prevCash = producer.getPrevCash();
 			double cash = producer.getCash();	
-							
-			producer.setTotalAcceptedVolume(currentBid.getVolume()+producer.getTotalAcceptedVolume());		
+			
+			totalAcceptedVolume += currentBid.getAcceptedVolume();
 							
 				if (currentBid.getStatus() == Bid.ACCEPTED){
 					
@@ -91,27 +92,27 @@ public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implem
 			}	
 		
 		// should be ordered according to marginal costs
-		Iterable<PowerPlant> allPlants = powerPlantRepository.findAllSortedPlantsPerProducerForTime(producer, getCurrentTick());
+		Iterable<PowerPlant> allPlants = powerPlantRepository.findAllPerProducerSortedByMarginalCost(producer);
 		
 		// physical dispatching 
-		double totalCost = producer.getTotalCost();
+		double totalCost = 0;
 		double cash = producer.getCash();
-		producer.getTotalAcceptedVolume();
+		double dispatchedVolume = 0;
 		
 		for (PowerPlant plant:allPlants){
 		
-			if( plant.getCapacity() < producer.getTotalAcceptedVolume()){
+			if( plant.getCapacity() < totalAcceptedVolume){
 			
 			dispatchedVolume = plant.getCapacity();
-			producer.setTotalAcceptedVolume(producer.getTotalAcceptedVolume()-dispatchedVolume);
-			producer.setTotalCost(plant.calculateMarginalCost()*dispatchedVolume);
+			totalAcceptedVolume = totalAcceptedVolume-dispatchedVolume;
+			totalCost = plant.getMarginalCost()*dispatchedVolume;
 									
 			}
-			if(plant.getCapacity() > producer.getTotalAcceptedVolume()){
+			if(plant.getCapacity() > totalAcceptedVolume){
 			
-			dispatchedVolume = producer.getTotalAcceptedVolume();
-			producer.setTotalCost(plant.calculateMarginalCost()*dispatchedVolume);
-			producer.setTotalAcceptedVolume(producer.getTotalAcceptedVolume()-dispatchedVolume);
+			dispatchedVolume = totalAcceptedVolume;
+			totalCost = plant.getMarginalCost()*dispatchedVolume;
+			totalAcceptedVolume = totalAcceptedVolume-dispatchedVolume;
 			// should be zero	
 			
 			}

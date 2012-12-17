@@ -22,21 +22,18 @@ import polep.repository.BidRepository;
 import polep.repository.EnergyProducerRepository;
 import polep.repository.PowerPlantRepository;
 
-/**
- * @author JCRichstein
- * 
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"/polep-test-context.xml"})
 @Transactional
-public class BidIntoMarketRoleTest {
-    
-    @Autowired Neo4jOperations template;
+
+public class DispatchPowerPlantRoleTest {
+
+	@Autowired Neo4jOperations template;
     @Autowired PowerPlantRepository powerPlantRepository;
     @Autowired EnergyProducerRepository energyProducerRepository;
     @Autowired BidRepository bidRepository; 
-    
-    Logger logger = Logger.getLogger(BidIntoMarketRoleTest.class);
+	
+    Logger logger = Logger.getLogger(DispatchPowerPlantRoleTest.class);
 	
     @Before
     @Transactional
@@ -44,37 +41,28 @@ public class BidIntoMarketRoleTest {
     }
     
     @Test
-    public void checkBidIntoMarketFunctionality(){
-    	
+    public void testDispatchPowerPlantRole() {
+	
+    
     	EnergyProducer producer = new EnergyProducer();
-    	PowerPlant plant = new PowerPlant();
-    	Fuel fuel = new Fuel();
-    	fuel.setPrice(20);
-    	fuel.persist(); // Saves it to the database
-    	plant.setCapacity(500);
-    	plant.setThisFuel(fuel);
-    	plant.setEfficiency(0.33);
-    	plant.persist(); // Saves it to the database
-    	plant.getMarginalCost();
-    	
-    	Set<PowerPlant> setPowerPlant = producer.getPowerPlantSet();
-    	setPowerPlant.add(plant);
     	producer.persist();
     	
-    	BidIntoMarketRole bidIntoMarketRole = new BidIntoMarketRole();
-    	bidIntoMarketRole.act(producer);
-    	
-    	
-    	Bid bid = bidRepository.findAll().iterator().next();
-    	
-    	logger.warn("Price: " + bid.getPrice());
-    	logger.warn("Volume: " + bid.getVolume());
-    	
-    	assertTrue(bid.getPrice()==20);
-    	assertTrue(bid.getVolume()==500);
-    	
-    	
-    }
-    
+    	Bid bid1 = new Bid();
+    	bid1.setBidder(producer);
+    	bid1.setVolume(20);
+    	bid1.setPrice(price)
+    	bid1.persist();
+    	Bid bid2 = new Bid();
+    	bid2.persist();
+    	bid2.setBidder(producer);
+    	Bid bid3 = new Bid();
+    	bid3.persist();
+    	bid3.setBidder(producer);
+    	    	    	
+    	double clearingPrice = 10.0;
+    		
+    	DispatchPowerPlantRole dppr = new DispatchPowerPlantRole();
+    	dppr.act(producer);
+    }	
 
-}	
+}
