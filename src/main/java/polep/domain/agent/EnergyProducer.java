@@ -52,7 +52,25 @@ public class EnergyProducer extends AbstractAgent implements Agent {
     public double prevCash;
     
 	public double revenue;
+	public double totalCost;
+	public double totalAcceptedVolume;
     
+	public double getTotalAcceptedVolume() {
+		return totalAcceptedVolume;
+	}
+
+	public void setTotalAcceptedVolume(double totalAcceptedVolume) {
+		this.totalAcceptedVolume = totalAcceptedVolume;
+	}
+
+	public double getTotalCost() {
+		return totalCost;
+	}
+
+	public void setTotalCost(double totalCost) {
+		this.totalCost = totalCost;
+	}
+
 	public double experiencefunction;
     
     public double getExperiencefunction() {
