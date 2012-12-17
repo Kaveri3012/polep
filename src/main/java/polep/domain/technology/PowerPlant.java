@@ -9,6 +9,7 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
 public class PowerPlant {
 
         // @Indexed
+	private String name;
     private String nameTechnology;
     private double capacity;
     private double efficiency; 
@@ -27,12 +28,26 @@ public class PowerPlant {
 	}
 
 	public String getName() {
-        return nameTechnology;
+        return name;
     }
 
     public void setName(String name) {
-        this.nameTechnology = name;
+        this.name = name;
     }
+
+	/**
+	 * @return the nameTechnology
+	 */
+	public String getNameTechnology() {
+		return nameTechnology;
+	}
+
+	/**
+	 * @param nameTechnology the nameTechnology to set
+	 */
+	public void setNameTechnology(String nameTechnology) {
+		this.nameTechnology = nameTechnology;
+	}
 
 	public double getCapacity() {
 		return capacity;

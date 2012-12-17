@@ -8,14 +8,160 @@
   <bean class="agentspring.graphdb.PersistingBeanPostProcessor"/>
 
   <!--  Agents -->
-  <bean id="winter" class="polep.domain.agent.polepAgent" p:name="Winter" p:cash="20"/>
-  <bean id="summer" class="polep.domain.agent.polepAgent" p:name="Summer" p:cash="30"/>
-  <bean id="autumn" class="polep.domain.agent.polepAgent" p:name="Autumn" p:cash="100"/>
-  <bean id="spring" class="polep.domain.agent.polepAgent" p:name="Spring" p:cash="30"/>
+  <!-- TODO: fill in other properties, as well as complete other agents -->
   
-  <!--  Stuff  -->
-  <bean id="coal"       class="polep.domain.things.Stuff" p:name="Coal" p:price="0.7"/>
-  <bean id="biomass"    class="polep.domain.things.Stuff" p:name="Biomass" p:price="0.5"/>
-  <bean id="co2"        class="polep.domain.things.Stuff" p:name="Co2" p:price="0.2"/>
+  <bean id="polepModel" class="polep.domain.agent.PolepModel"
+  p:name="Polep Model" />
+  
+  <bean id="producerA" class="polep.domain.agent.EnergyProducer" 
+  p:name="Producer A"
+  p:cash="0">
+	  <property name="powerPlantSet">
+		  <set>
+		  	<ref bean="powerplantABase"/>
+		  	<ref bean="powerplantAShoulder"/>
+		  	<ref bean="powerplantAPeak"/>
+		  </set>
+	  </property>
+  </bean>
+  
+  <bean id="producerB" class="polep.domain.agent.EnergyProducer" p:name="Producer A"/>
+  <bean id="producerC" class="polep.domain.agent.EnergyProducer" p:name="Producer A"/>
+  
+  <bean id="regulator" class="polep.domain.agent.Regulator" p:name="Regulator" />
+  
+  <!-- Energy Market -->
+  <!-- Units: 
+  valueOfLostLoad:Eur/MWh_el -->
+  <bean id="electricityMarket" class="polep.domain.market.EnergyMarket"
+  p:name="Electricity Market"
+  p:valueOfLostLoad="2000" />
+    
+  <!--  PowerPlants  -->
+  <!-- TODO: Add the other properties and relationships, define the other power plant
+  types based on a short online research, or asking me -->
+  <!-- Units: 
+  capacity: MW
+  efficiency: number-->
+  <bean id="powerplantABase" class="polep.domain.technology.PowerPlant" 
+  p:name="Producer A's Base PP" 
+  p:nameTechnology="Pulverized Coal"
+  p:capacity="700"
+  p:efficiency="0.37" >
+  	<property name="fuel" ref="coal" />
+  </bean>
+  
+  <bean id="powerplantBBase" class="polep.domain.technology.PowerPlant" p:name="Producer B's Base PP"/>
+  <bean id="powerplantCBase" class="polep.domain.technology.PowerPlant" p:name="Producer C's Base PP"/>
+  <bean id="powerplantAShoulder" class="polep.domain.technology.PowerPlant" p:name="Producer A's Shoulder PP"/>
+  <bean id="powerplantBShoulder" class="polep.domain.technology.PowerPlant" p:name="Producer B's Shoulder PP"/>
+  <bean id="powerplantCShoulder" class="polep.domain.technology.PowerPlant" p:name="Producer C's Shoulder PP"/>
+  <bean id="powerplantAPeak" class="polep.domain.technology.PowerPlant" p:name="Producer A's Peak PP"/>
+  <bean id="powerplantBPeak" class="polep.domain.technology.PowerPlant" p:name="Producer B's Peak PP"/>
+  <bean id="powerplantCPeak" class="polep.domain.technology.PowerPlant" p:name="Producer C's Peak PP"/>
+  
+  <!-- Fuels -->
+  <!-- TODO: Adjust fuel prices in EUR/MWh -->
+  <!-- Units: 
+  price: Eur/MWh_th -->
+  <bean id="coal" class="polep.domain.technology.Fuel" p:price="8"/>
+  <bean id="gas" class="polep.domain.technology.Fuel" p:price="8"/>
+	
+  
+  <!-- PowerPlantWithholdments -->
+  <!-- Complete other withholdments for other power plants -->
+  
+	  <!-- Energy Producer's A Withholdments -->
+	  <bean id="aBaseNoWithholdment" class="polep.domain.market.PowerPlantWithholdment"
+	  p:powerplant-ref="powerplantABase"
+	  p:withholdment="0.0" />
+	  <bean id="aBase1LWithholdment" class="polep.domain.market.PowerPlantWithholdment"
+	  p:powerplant-ref="powerplantABase"
+	  p:withholdment="${firstWithholdmentLevel}" />
+	  <bean id="aBase2LWithholdment" class="polep.domain.market.PowerPlantWithholdment"
+	  p:powerplant-ref="powerplantABase"
+	  p:withholdment="${secondWithholdmentLevel}" />
+	  <bean id="aBase3LWithholdment" class="polep.domain.market.PowerPlantWithholdment"
+	  p:powerplant-ref="powerplantABase"
+	  p:withholdment="${thirdWithholdmentLevel}" />
+	  <bean id="aShoulderNoWithholdment" class="polep.domain.market.PowerPlantWithholdment"
+	  p:powerplant-ref="powerplantAShoulder"
+	  p:withholdment="0.0" />
+	  <bean id="aShoulder1LWithholdment" class="polep.domain.market.PowerPlantWithholdment"
+	  p:powerplant-ref="powerplantAShoulder"
+	  p:withholdment="${firstWithholdmentLevel}" />
+	  <bean id="aShoulder2LWithholdment" class="polep.domain.market.PowerPlantWithholdment"
+	  p:powerplant-ref="powerplantAShoulder"
+	  p:withholdment="${secondWithholdmentLevel}" />
+	  <bean id="aShoulder3LWithholdment" class="polep.domain.market.PowerPlantWithholdment"
+	  p:powerplant-ref="powerplantAShoulder"
+	  p:withholdment="${thirdWithholdmentLevel}" />
+	  <bean id="aPeakNoWithholdment" class="polep.domain.market.PowerPlantWithholdment"
+	  p:powerplant-ref="powerplantAPeak"
+	  p:withholdment="0.00" />
+	  <bean id="aPeak1LWithholdment" class="polep.domain.market.PowerPlantWithholdment"
+	  p:powerplant-ref="powerplantAPeak"
+	  p:withholdment="${firstWithholdmentLevel}" />
+	  <bean id="aPeak2LWithholdment" class="polep.domain.market.PowerPlantWithholdment"
+	  p:powerplant-ref="powerplantAPeak"
+	  p:withholdment="${secondWithholdmentLevel}" />
+	  <bean id="aPeak3LWithholdment" class="polep.domain.market.PowerPlantWithholdment"
+	  p:powerplant-ref="powerplantAPeak"
+	  p:withholdment="${thirdWithholdmentLevel}" />
+	  
+	  <!-- Energy Producer's B Withholdments -->
+	  
+	  <!-- Energy Producer's C Withholdments -->
+	  
+	<!-- Strategies -->
+	<!-- TODO: Complete the other strategies for all users -->
+	<bean id="aNoWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
+	p:propensity="${initialPropensity}">
+		<property name="setOfPowerPlantWithholdments">
+			<set>
+				<ref bean="aBaseNoWithholdment"/>
+				<ref bean="aShoulderNoWithholdment"/>
+				<ref bean="aPeakNoWithholdment"/>
+			</set>
+		</property>
+	</bean>
+	<bean id="aBase1LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
+	p:propensity="${initialPropensity}">
+		<property name="setOfPowerPlantWithholdments">
+			<set>
+				<ref bean="aBase1LWithholdment"/>
+				<ref bean="aShoulderNoWithholdment"/>
+				<ref bean="aPeakNoWithholdment"/>
+			</set>
+		</property>
+	</bean>
+	<bean id="aBase2LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
+	p:propensity="${initialPropensity}">
+		<property name="setOfPowerPlantWithholdments">
+			<set>
+				<ref bean="aBase2LWithholdment"/>
+				<ref bean="aShoulderNoWithholdment"/>
+				<ref bean="aPeakNoWithholdment"/>
+			</set>
+		</property>
+	</bean>
+   <bean id="aBase3LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
+	p:propensity="${initialPropensity}">
+		<property name="setOfPowerPlantWithholdments">
+			<set>
+				<ref bean="aBase3LWithholdment"/>
+				<ref bean="aShoulderNoWithholdment"/>
+				<ref bean="aPeakNoWithholdment"/>
+			</set>
+		</property>
+	</bean>
+	
+	
+	
+		<!-- Parameter file -->
+	<bean id="projectPropertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:scenarios/parametersA.properties" />
+	</bean>
   
 </beans>
