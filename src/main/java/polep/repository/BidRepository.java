@@ -29,7 +29,7 @@ public interface BidRepository extends GraphRepository<Bid> {
 	 
 	@Query(value="g.v(producer).out('BIDDER').filter{it.time == tick}", type=QueryType.Gremlin)
 	 	Iterable<Bid> findAllBidsPerProducerForTime(@Param("producer") EnergyProducer producer, @Param("tick") long time);
-	 
+	
 	 @Query("START market=node({market}) MATCH (market)<-[:BIDDINGMARKET]-(bid) WHERE (bid.time = {time}) and (bid.supplyBid=true) RETURN sum(bid.volume)")
 	    double calculateTotalSupplyForMarketForTime(@Param("market") EnergyMarket market, @Param("time") long time);
 
