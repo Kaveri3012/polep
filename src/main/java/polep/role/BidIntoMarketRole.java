@@ -1,6 +1,5 @@
 package polep.role;
 
-import java.util.Iterator;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +9,10 @@ import polep.domain.agent.EnergyProducer;
 import polep.domain.market.Bid;
 import polep.domain.market.BiddingStrategy;
 import polep.domain.market.PowerPlantWithholdment;
-import polep.domain.technology.PowerPlant;
 import polep.repository.PowerPlantRepository;
 import agentspring.role.AbstractRole;
 import agentspring.role.Role;
+import agentspring.role.RoleComponent;
 
 /**
  * 			<----- BidIntoMarketRole: Kaveri ----->
@@ -36,6 +35,7 @@ import agentspring.role.Role;
  * @author Kaveri3012
  *
  */
+@RoleComponent
 public class BidIntoMarketRole  extends AbstractRole<EnergyProducer> implements Role<EnergyProducer> {
 
 	@Autowired

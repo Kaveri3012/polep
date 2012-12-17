@@ -71,12 +71,12 @@ public class BidIntoMarketRoleTest {
     	plant1.setEfficiency(0.2);
     	plant2.setEfficiency(0.2);
     	plant3.setEfficiency(0.2);
+    	plant1.setMarginalCost(plant1.calculateMarginalCost());
+    	plant2.setMarginalCost(plant2.calculateMarginalCost());
+    	plant3.setMarginalCost(plant3.calculateMarginalCost());
     	plant1.persist(); // Saves it to the database
     	plant2.persist();
     	plant3.persist();
-    	plant1.calculateMarginalCost();
-    	plant2.calculateMarginalCost();
-    	plant3.calculateMarginalCost();
     	
     	producer.setPriceMarkUp(0.1);
     	

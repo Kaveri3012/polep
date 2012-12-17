@@ -57,6 +57,10 @@ public class PowerPlant {
 	public void setMarginalCost(double marginalCost){
 		this.marginalCost = marginalCost;
 	} 
+	
+	public double calculateMarginalCost() {
+		return getFuel().getPrice()/getEfficiency();
+	}
 
 
 
