@@ -49,20 +49,38 @@ public class DispatchPowerPlantRoleTest {
     	
     	Bid bid1 = new Bid();
     	bid1.setBidder(producer);
-    	bid1.setVolume(20);
-    	bid1.setPrice(price)
+    	bid1.setVolume(10);
+    	bid1.setPrice(5);
+    	bid1.setStatus(3); // accepted
+    	bid1.setAcceptedVolume(10);
     	bid1.persist();
+    	
     	Bid bid2 = new Bid();
-    	bid2.persist();
     	bid2.setBidder(producer);
+    	bid2.setVolume(10);
+    	bid2.setPrice(7);
+    	bid2.setStatus(3); // accepted
+    	bid2.setAcceptedVolume(10);
+    	bid2.persist();
+   
+    	   	
     	Bid bid3 = new Bid();
-    	bid3.persist();
     	bid3.setBidder(producer);
-    	    	    	
+    	bid3.setVolume(10);
+    	bid3.setPrice(10);
+    	bid3.setStatus(2); // partly accepted
+    	bid3.setAcceptedVolume(5);
+    	bid3.persist();
+    	
+    	
     	double clearingPrice = 10.0;
     		
     	DispatchPowerPlantRole dppr = new DispatchPowerPlantRole();
     	dppr.act(producer);
+    
+    	
+    
+    
     }	
 
 }

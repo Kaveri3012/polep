@@ -41,9 +41,23 @@ public class UpdatePropensityRoleTest {
     }
     
     @Test
-    public static void main(String[] args) {
+    public void testPropensityRole() {
 
 	
+    	EnergyProducer producer = new EnergyProducer();
+    	producer.persist();
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	UpdatePropensityRole upr = new UpdatePropensityRole();
+    	upr.act(producer);	
 		
 	}
 
