@@ -26,7 +26,7 @@ import polep.repository.EnergyProducerRepository;
 import polep.repository.PowerPlantRepository;
 
 /**
- * @author JCRichstein
+ * @author Kaveri
  * 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -53,15 +53,21 @@ public class BidIntoMarketRoleTest {
     	PowerPlant plant1 = new PowerPlant();
     	PowerPlant plant2 = new PowerPlant();
     	PowerPlant plant3 = new PowerPlant();
-    	Fuel fuel = new Fuel();
-    	fuel.setPrice(20);
-    	fuel.persist(); // Saves it to the database
+    	Fuel fuel1 = new Fuel();
+    	Fuel fuel2 = new Fuel();
+    	Fuel fuel3 = new Fuel();
+    	fuel1.setPrice(20);
+    	fuel2.setPrice(30);
+    	fuel3.setPrice(40);
+    	fuel1.persist(); // Saves it to the database
+    	fuel2.persist();
+    	fuel3.persist();
     	plant1.setCapacity(500);
     	plant2.setCapacity(500);
     	plant3.setCapacity(500);
-    	plant1.setFuel(fuel);
-    	plant2.setFuel(fuel);
-    	plant3.setFuel(fuel);
+    	plant1.setFuel(fuel1);
+    	plant2.setFuel(fuel2);
+    	plant3.setFuel(fuel3);
     	plant1.setEfficiency(0.2);
     	plant2.setEfficiency(0.2);
     	plant3.setEfficiency(0.2);
