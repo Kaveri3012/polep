@@ -53,4 +53,6 @@ public class PowerPlant {
 		return getFuel().getPrice()/getEfficiency();
 	}
 
+
+
 }

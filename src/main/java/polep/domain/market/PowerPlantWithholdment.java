@@ -14,9 +14,7 @@ public class PowerPlantWithholdment {
 	@RelatedTo(type = "STRATEGY_POWERPLANT", elementClass=PowerPlant.class, direction=Direction.OUTGOING)
 	private PowerPlant powerplant;
 
-	public PowerPlantWithholdment() {
-		super();
-	}
+	
 
 	/**
 	 * @return the withholdment
