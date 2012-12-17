@@ -1,6 +1,7 @@
 package polep.role;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Set;
 
 import org.neo4j.graphdb.Direction;
@@ -16,9 +17,11 @@ import agentspring.role.Role;
 import agentspring.role.RoleComponent;
 import polep.domain.agent.EnergyProducer;
 import polep.domain.agent.Regulator;
+import polep.domain.market.EnergyMarket;
 import polep.domain.technology.PowerPlant;
 import polep.repository.BidRepository;
 import polep.repository.EnergyProducerRepository;
+import polep.repository.PowerPlantRepository;
 
 /*<--- RegulatorRole: Prad ----->
 Regulator controls Powerplant owner:
@@ -35,58 +38,52 @@ public class RegulatorRole extends AbstractRole<Regulator> implements Role<Regul
 	@Autowired
 	EnergyProducerRepository energyProducerRepository;
 
-	//TODO Some of this shouldn't be here.
+	@Autowired
+	PowerPlantRepository plantRepository;
+
 	@Autowired
 	BidRepository bidRepository;
-	@RelatedTo(type = "OWNS", elementClass = PowerPlant.class, direction = Direction.OUTGOING)
-	private Set<PowerPlant> powerPlantSet;
-
 	
+
 	@Transactional
 	public void act(Regulator regulator){
+		
+		
+		ArrayList<EnergyProducer> listofpowerplantowners = energyProducerRepository.listofpowerplantowners(getCurrentTick());
 
-
-		int counter = 0;
-		/* TODO check if this works with a JUNit test. There also some predefined
-		 * methods in every repository which might be useful.
-		 */
-		int x = energyProducerRepository.listofpowerplantowners().size();
-		int probability[] = new int[x];
 		double fine = regulator.getFine();
-		double Capacity;
+		double capacity = 0;
+		
 
-		for (counter = 0; counter <= x; counter++){
-			//TODO We need to substitute this with a real function.
-			BiasedCoin coin = new BiasedCoin();
-			energyProducerRepository.listofpowerplantowners().get(counter);
+		for (EnergyProducer currentProducer:listofpowerplantowners)
+		{
+		
+			BiasedCoin coin = new BiasedCoin(); // creates a coin
 
-			coin.flip(probability[counter]);
-			double result = coin.getSide();
+			coin.flip(currentProducer.getProbability()); 
+			double result = coin.getSide(); // flips coin gets value
 
-			if (result > 0.5){
+			if (result <= 0.5){
+				
+// Gets actual total capacity from the repository considering complete information (repository query may need correction)
+				
+				capacity = plantRepository.calculateCapacityOfOperationalPowerPlants(getCurrentTick());
+				
+// Compares capacity with total of all bids of the producer for total tick. If it is < then fines the producer.			
+				
+				if (capacity < energyProducerRepository.calculateTotalSupplyofProducerForTime(currentProducer, getCurrentTick())){
+					double cash = currentProducer.getCash() - fine;
+					currentProducer.setCash(cash);
 
-				break;
-			}
-			else if (result <= 0.5){
-				/* TODO: In principal correct logic, but the for-loop needs to be adjusted. 
-				 * If you have a List of something (powerplants, energyproducers) you can iterate through them with
-				 * a for loop. An example is in BidIntoMarketRole.
-				 */
-				for (int i = 0; i<= energyProducerRepository.listofpowerplantowners().get(counter).getPowerPlantSet().size();i++){
-					Capacity = Capacity + energyProducerRepository.listofpowerplantowners().get(counter).getPowerPlantSet().getCapacity(i);
+// Changes probability value so that next time the probabilty of checking is higher. Currently set to zero					
+					double probability = currentProducer.getProbability() + 0;
+					currentProducer.setProbability(probability);
 
 				}
-
-				//  if Bid Volume [counter] < Capacity
-
-				// producer.setCash() = producer.getCash() - Fine
-
-				//probability[counter] += 0.1
-
-
+// Is an else next needed here to tell the program to goto to the next generator
 			}
-
-
 		}
 	}
-}
+	}
+
+

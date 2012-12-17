@@ -54,6 +54,8 @@ public class EnergyProducer extends AbstractAgent implements Agent {
 	public double revenue;
 	
 	public double experiencefunction;
+	
+	public double probability = 0;
     
     public double getExperiencefunction() {
 		return experiencefunction;
@@ -152,6 +154,14 @@ public class EnergyProducer extends AbstractAgent implements Agent {
 	 */
 	public void setChosenStrategy(BiddingStrategy chosenStrategy) {
 		this.chosenStrategy = chosenStrategy;
+	}
+
+	public double getProbability() {
+		return probability;
+	}
+
+	public void setProbability(double probability) {
+		this.probability = probability;
 	}
 
 }
