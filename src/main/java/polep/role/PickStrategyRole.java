@@ -55,9 +55,7 @@ public class PickStrategyRole  extends AbstractRole<EnergyProducer> implements R
 		
 		producer.setChosenStrategy(chosenStrategy);
 		
-		
-		
-		
+				
 
 	}
 }

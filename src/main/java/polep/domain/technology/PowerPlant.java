@@ -58,4 +58,6 @@ public class PowerPlant {
 		this.marginalCost = marginalCost;
 	} 
 
+
+
 }

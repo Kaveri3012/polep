@@ -14,7 +14,6 @@ import polep.domain.technology.PowerPlant;
 import polep.repository.PowerPlantRepository;
 import agentspring.role.AbstractRole;
 import agentspring.role.Role;
-import agentspring.role.RoleComponent;
 
 /**
  * 			<----- BidIntoMarketRole: Kaveri ----->
@@ -37,7 +36,6 @@ import agentspring.role.RoleComponent;
  * @author Kaveri3012
  *
  */
-@RoleComponent
 public class BidIntoMarketRole  extends AbstractRole<EnergyProducer> implements Role<EnergyProducer> {
 
 	@Autowired
