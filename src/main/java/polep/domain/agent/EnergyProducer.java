@@ -55,9 +55,11 @@ public class EnergyProducer extends AbstractAgent implements Agent {
 	
 	public double experiencefunction;
 	
-	public double probability = 0;
-    
-    public double getExperiencefunction() {
+	public double probabilitytoBeControlledbyRegulator;
+	
+	
+
+	public double getExperiencefunction() {
 		return experiencefunction;
 	}
 
@@ -157,11 +159,11 @@ public class EnergyProducer extends AbstractAgent implements Agent {
 	}
 
 	public double getProbability() {
-		return probability;
+		return probabilitytoBeControlledbyRegulator;
 	}
 
 	public void setProbability(double probability) {
-		this.probability = probability;
+		this.probabilitytoBeControlledbyRegulator = probability;
 	}
 
 }

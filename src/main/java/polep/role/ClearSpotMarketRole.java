@@ -32,44 +32,64 @@ public class ClearSpotMarketRole extends AbstractRole<EnergyMarket> implements R
 	@Transactional
 	public void act (EnergyMarket market){
 
-		Iterable<Bid> sortedListofBidPairs = bidRepository.findOffersForMarketForTime(market, getCurrentTick());
+		Iterable<Bid> sortedListofBidPairs = bidRepository.findAllSortedBidsByPrice(getCurrentTick());
 		double demand = market.getDemand();
 		double sumofSupplyBidsAccepted = 0;
 		double acceptedPrice = 0;
 		boolean isTheMarketCleared = false;
+		
+		//This epsilon is to account for rounding errors for java (only relevant for exact clearing)
+		double clearingEpsilon = 0.001;
+		
+		if (demand == 0){
+			isTheMarketCleared = true;
+			acceptedPrice=0;
+		}
 
 		for (Bid currentBid:sortedListofBidPairs){
-			if (isTheMarketCleared == false) {
+			
 
 
-				if (sumofSupplyBidsAccepted < demand){
-					sumofSupplyBidsAccepted += currentBid.getVolume();
+			if (isTheMarketCleared == false ) {
+
+
+				if (demand-(sumofSupplyBidsAccepted + currentBid.getVolume()) >=  - clearingEpsilon){
 					acceptedPrice = currentBid.getPrice();
 					currentBid.setStatus(Bid.ACCEPTED);
 					currentBid.setAcceptedVolume(currentBid.getVolume());
+					sumofSupplyBidsAccepted += currentBid.getVolume();
 
+					// logger.warn("{}", sumofSupplyBidsAccepted);
 				} 
 
 
-				else if (sumofSupplyBidsAccepted >= demand){
+				else if (demand-(sumofSupplyBidsAccepted + currentBid.getVolume())< clearingEpsilon){
+
 					currentBid.setStatus(Bid.PARTLY_ACCEPTED);
-					currentBid.setAcceptedVolume(currentBid.getVolume()-(sumofSupplyBidsAccepted-demand));
+					currentBid.setAcceptedVolume((demand-sumofSupplyBidsAccepted));
 					acceptedPrice = currentBid.getPrice();
+					sumofSupplyBidsAccepted += currentBid.getAcceptedVolume();
 					isTheMarketCleared = true;
+
+					//logger.warn("Accepted" + currentBid.getAcceptedVolume());
 
 				}
 
-			}
-			else {
+			} else{
 				currentBid.setStatus(Bid.FAILED);
+				currentBid.setAcceptedVolume(0);
 			}
+
+			if(demand - sumofSupplyBidsAccepted <   clearingEpsilon)
+				isTheMarketCleared = true;
+
 		}
 		if (isTheMarketCleared==true){
 			sumofSupplyBidsAccepted = demand;
 			ClearingPoint clearingPoint = new ClearingPoint();
 			clearingPoint.setPrice(acceptedPrice);
 			clearingPoint.setVolume(demand);
-			clearingPoint.persist();
+			clearingPoint.persist(); 
 		}
 		else {
 			ClearingPoint clearingPoint = new ClearingPoint();
