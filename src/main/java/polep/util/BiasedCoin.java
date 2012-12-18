@@ -1,4 +1,6 @@
-package polep.role;
+package polep.util;
+
+import cern.jet.random.*;
 
 /* This class creates a Weighed coin. The BiasedCoin contains a method flip within which the bias parameter 
  * is set.
@@ -6,17 +8,20 @@ package polep.role;
 
 public class BiasedCoin {
 	
-	public BiasedCoin()
+	
+	Uniform uni = new Uniform(0, 1, Uniform.makeDefaultGenerator());
+	
+/*	public BiasedCoin()
 	{
 		
-		flip(0);
-	}
+		uni
+	}*/
 	double side;	
 	public void flip(double biasParameter)
 	{
 		
 		
-		side =  (double)((Math.random()- biasParameter));
+		side = ((uni.nextDouble()- biasParameter));
 	}
 
 	public double getSide() {

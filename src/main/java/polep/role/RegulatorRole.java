@@ -19,6 +19,7 @@ import polep.domain.agent.Regulator;
 import polep.repository.BidRepository;
 import polep.repository.EnergyProducerRepository;
 import polep.repository.PowerPlantRepository;
+import polep.util.BiasedCoin;
 
 /*<--- RegulatorRole: Prad ----->
 Regulator controls Power plant owner:
@@ -46,13 +47,14 @@ public class RegulatorRole extends AbstractRole<Regulator> implements Role<Regul
 	public void act(Regulator regulator){
 
 
-		Iterable<EnergyProducer> listofpowerplantowners = energyProducerRepository.listofpowerplantowners(getCurrentTick());
+		Iterable<EnergyProducer> listofPowerPlantOwners = energyProducerRepository.findAll();
 
 		double fine = regulator.getFine();
 		double capacity = 0;
+		double probabilitytoCheck = regulator.getProbabilityToCheck();
+		double acceptableWitholdment = regulator.getAcceptableWitholdment();
 
-
-		for (EnergyProducer currentProducer:listofpowerplantowners)
+		for (EnergyProducer currentProducer:listofPowerPlantOwners)
 		{
 			// creates a coin
 
@@ -62,18 +64,22 @@ public class RegulatorRole extends AbstractRole<Regulator> implements Role<Regul
 
 			// coin.flip(currentProducer.getProbability()); 
 
+
+
 			coin.flip(0); 
 			double result = coin.getSide(); // flips coin gets value
 
-			if (result <= 0.5){
+			if (result <= probabilitytoCheck){
 
 				// Gets actual total capacity from the repository considering complete information (repository query may need correction)
 
-				capacity = plantRepository.calculateCapacityOfOperationalPowerPlants(getCurrentTick());
+				capacity = plantRepository.calculateCapacityOfPowerPlantsofProducer(currentProducer);
 
 				// Compares capacity with total of all bids of the producer for total tick. If it is < then fines the producer.			
 
-				if (capacity < energyProducerRepository.calculateTotalSupplyofProducerForTime(currentProducer, getCurrentTick())){
+				double biddedCapacity = bidRepository.calculateTotalSupplyofProducerForTime(currentProducer, getCurrentTick());
+				
+				if (((1-acceptableWitholdment)*capacity) >= biddedCapacity){
 					double cash = currentProducer.getCash() - fine;
 					currentProducer.setCash(cash);
 

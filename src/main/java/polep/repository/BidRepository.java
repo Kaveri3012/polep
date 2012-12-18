@@ -37,6 +37,9 @@ public interface BidRepository extends GraphRepository<Bid> {
 // For ClearSpotMarketRole  
 	 @Query(value="g.idx('__types__')[[className:'polep.domain.market.Bid']].filter{it.time == tick}.sort{it.price}._()", type=QueryType.Gremlin)
 	   Iterable<Bid> findAllSortedBidsByPrice(@Param("tick") long time);
+
+	@Query(value="g.v(producer).out('BIDDER').filter{it.time == tick}.sum{it.volume}", type=QueryType.Gremlin)
+	 double calculateTotalSupplyofProducerForTime(@Param("producer") EnergyProducer producer, @Param("tick") long time);
 }
 
 
