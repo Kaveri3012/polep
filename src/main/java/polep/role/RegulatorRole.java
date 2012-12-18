@@ -46,7 +46,7 @@ public class RegulatorRole extends AbstractRole<Regulator> implements Role<Regul
 	public void act(Regulator regulator){
 
 
-		ArrayList<EnergyProducer> listofpowerplantowners = energyProducerRepository.listofpowerplantowners(getCurrentTick());
+		Iterable<EnergyProducer> listofpowerplantowners = energyProducerRepository.listofpowerplantowners(getCurrentTick());
 
 		double fine = regulator.getFine();
 		double capacity = 0;

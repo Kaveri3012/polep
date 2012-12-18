@@ -43,6 +43,10 @@ public class EnergyMarket extends AbstractAgent implements Agent {
 		return demand;
 	}
 
+	public void setDemand(double demand) {
+		this.demand = demand;
+	}
+
 	@Override
 	public String getName() {
 		return this.name;

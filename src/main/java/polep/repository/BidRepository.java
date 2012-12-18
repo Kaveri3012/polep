@@ -24,9 +24,7 @@ public interface BidRepository extends GraphRepository<Bid> {
 	
 	// Get all supply bids from the energy market in ascending order
 	
-	 @Query("START market=node({market}) MATCH (market)<-[:BIDDINGMARKET]-(bid) WHERE (bid.time = {time}) and (bid.supplyBid=true) RETURN bid ORDER BY bid.price asc")
-	    Iterable<Bid> findOffersForMarketForTime(@Param("market") EnergyMarket market, @Param("time") long time);
-	 
+	 	 
 	@Query(value="g.v(producer).out('BIDDER').filter{it.time == tick}", type=QueryType.Gremlin)
 	 	Iterable<Bid> findAllBidsPerProducerForTime(@Param("producer") EnergyProducer producer, @Param("tick") long time);
 	
@@ -35,4 +33,10 @@ public interface BidRepository extends GraphRepository<Bid> {
 
 	 @Query("START market=node({market}) MATCH (market)<-[:BIDDINGMARKET]-(bid) WHERE (bid.time = {time}) and (bid.supplyBid=true) RETURN max(bid.price)")
 	    double calculateTotalSupplyPriceForMarketForTime(@Param("market") EnergyMarket market, @Param("time") long time);
+
+// For ClearSpotMarketRole  
+	 @Query(value="g.idx('__types__')[[className:'polep.domain.market.Bid']].filter{it.time == tick}.sort{it.price}._()", type=QueryType.Gremlin)
+	   Iterable<Bid> findAllSortedBidsByPrice(@Param("tick") long time);
 }
+
+
