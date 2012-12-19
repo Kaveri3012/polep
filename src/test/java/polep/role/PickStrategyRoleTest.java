@@ -39,6 +39,9 @@ public class PickStrategyRoleTest {
     @Autowired EnergyProducerRepository energyProducerRepository;
     @Autowired BidRepository bidRepository; 
     
+    
+    
+    
     Logger logger = Logger.getLogger(PickStrategyRoleTest.class);
 	
     @Before
@@ -50,17 +53,30 @@ public class PickStrategyRoleTest {
     public void checkPickStrategyFunctionality(){
     	
     	
+    	EnergyProducer producer = new EnergyProducer();
     	
+    	BiddingStrategy biddingStrategy1 = new BiddingStrategy();
+    	BiddingStrategy biddingStrategy2 = new BiddingStrategy();
+    	BiddingStrategy biddingStrategy3 = new BiddingStrategy();
     	
-    	Iterable<Bid> bids = bidRepository.findAll();
+    	biddingStrategy1.setPropensity(0.1);
+    	biddingStrategy2.setPropensity(0.2);
+    	biddingStrategy3.setPropensity(0.3);
     	
-    	for (Bid bid: bids){
-    		logger.warn("Price: " + bid.getPrice());
-        	logger.warn("Volume: " + bid.getVolume());
-    	}
+    	Set<BiddingStrategy> biddingStrategySet = new HashSet<BiddingStrategy>();
     	
-    
+    	biddingStrategySet.add(biddingStrategy1);
+    	biddingStrategySet.add(biddingStrategy2);
+    	biddingStrategySet.add(biddingStrategy3);
     	
+    	producer.setBiddingStrategySet(biddingStrategySet); 
+    	
+    	PickStrategyRole pickStrategyRole = new PickStrategyRole();
+    	pickStrategyRole.act(producer); 
+    	
+    	logger.warn("Chosen Strategy: " + producer.getChosenStrategy()); 
+    	 	
+    	    	
     	
     }
     
