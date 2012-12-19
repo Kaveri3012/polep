@@ -80,15 +80,28 @@ public class PickStrategyRoleTest {
     	producer.setBiddingStrategySet(biddingStrategySet); 
     	producer.persist();
     	
+    	int countStrategy1 = 0;
+    	int countStrategy2 = 0;
+    	int countStrategy3 = 0;
     	
-    	for (int i=0; i<=1000; i++){
-    		pickStrategyRole.act(producer); 
+    	
+    	for (int i=0; i<=2000; i++){
+    		pickStrategyRole.act(producer);
+    		if (producer.getChosenStrategy().getPropensity() == biddingStrategy1.getPropensity()){ countStrategy1++; }
+    		if (producer.getChosenStrategy().getPropensity() == biddingStrategy2.getPropensity()){ countStrategy2++; }
+    		if (producer.getChosenStrategy().getPropensity() == biddingStrategy3.getPropensity()){ countStrategy3++; }
+    		
     	}
     	
+    	double  probabilityStrategy1 = countStrategy1/1000.0;
+    	double  probabilityStrategy2 = countStrategy2/1000.0;
+    	double  probabilityStrategy3 = countStrategy3/1000.0;
     	
+    	//logger.warn("Chosen Strategy: " + producer.getChosenStrategy()); 
     	
-    	
-    	logger.warn("Chosen Strategy: " + producer.getChosenStrategy()); 
+    	logger.warn("Probability of Strategy 1 being chosen: " + probabilityStrategy1);
+    	logger.warn("Probability of Strategy 2 being chosen: " + probabilityStrategy2);
+    	logger.warn("Probability of Strategy 3 being chosen: " + probabilityStrategy3);
     	
     	
     	 	
