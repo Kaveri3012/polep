@@ -1,9 +1,5 @@
 package polep.role;
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.Set;
-
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,8 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import polep.domain.agent.EnergyProducer;
 import polep.domain.market.Bid;
-import polep.domain.technology.Fuel;
-import polep.domain.technology.PowerPlant;
 import polep.repository.BidRepository;
 import polep.repository.EnergyProducerRepository;
 import polep.repository.PowerPlantRepository;
@@ -72,15 +66,18 @@ public class DispatchPowerPlantRoleTest {
     	bid3.setAcceptedVolume(5);
     	bid3.persist();
     	
+    	Bid[] allPlants;
     	
-    	double clearingPrice = 10.0;
-    		
+    	double clearingPrice = 10;
+    	double revenue;
+    	double prevCash = 500;
+		double cash = 500;
+		    		
+    	  	
     	DispatchPowerPlantRole dppr = new DispatchPowerPlantRole();
     	dppr.act(producer);
     
-    	
-    
+    	   	
+    	}
     
     }	
-
-}
