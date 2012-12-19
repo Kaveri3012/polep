@@ -170,7 +170,7 @@
 	<!-- Energy Producer's A Withholdments -->
 	<bean id="aBaseNoWithholdment" class="polep.domain.market.PowerPlantWithholdment"
 		p:powerplant-ref="powerplantABase" p:withholdment="0.0" />
-	<bean id="bBase1LWithholdment" class="polep.domain.market.PowerPlantWithholdment"
+	<bean id="aBase1LWithholdment" class="polep.domain.market.PowerPlantWithholdment"
 		p:powerplant-ref="powerplantABase" p:withholdment="${firstWithholdmentLevel}" />
 	<bean id="aBase2LWithholdment" class="polep.domain.market.PowerPlantWithholdment"
 		p:powerplant-ref="powerplantABase" p:withholdment="${secondWithholdmentLevel}" />
