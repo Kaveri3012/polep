@@ -24,6 +24,7 @@ import polep.domain.technology.PowerPlant;
 import polep.repository.BidRepository;
 import polep.repository.EnergyProducerRepository;
 import polep.repository.PowerPlantRepository;
+import scala.Double;
 
 /**
  * @author Kaveri
@@ -68,7 +69,7 @@ public class PickStrategyRoleTest {
     	biddingStrategy3.setPropensity(0.2);
     	//expected probability of strategy 1 = 1/6
     	//expected probability of strategy 2 = 0.5
-    	// expected probability of strategy 3 = 0.33
+    	//expected probability of strategy 3 = 0.33
     	
    
     	Set<BiddingStrategy> biddingStrategySet = new HashSet<BiddingStrategy>();
@@ -84,8 +85,8 @@ public class PickStrategyRoleTest {
     	int countStrategy2 = 0;
     	int countStrategy3 = 0;
     	
-    	
-    	for (int i=0; i<=2000; i++){
+    	int i = 0;
+    	for (i=0; i<=2000; i++){
     		pickStrategyRole.act(producer);
     		if (producer.getChosenStrategy().getPropensity() == biddingStrategy1.getPropensity()){ countStrategy1++; }
     		if (producer.getChosenStrategy().getPropensity() == biddingStrategy2.getPropensity()){ countStrategy2++; }
@@ -93,18 +94,19 @@ public class PickStrategyRoleTest {
     		
     	}
     	
-    	double  probabilityStrategy1 = countStrategy1/1000.0;
-    	double  probabilityStrategy2 = countStrategy2/1000.0;
-    	double  probabilityStrategy3 = countStrategy3/1000.0;
+    	double  probabilityStrategy1 = countStrategy1/2000.0;
+    	double  probabilityStrategy2 = countStrategy2/2000.0;
+    	double  probabilityStrategy3 = countStrategy3/2000.0;
     	
     	//logger.warn("Chosen Strategy: " + producer.getChosenStrategy()); 
     	
-    	logger.warn("Probability of Strategy 1 being chosen: " + probabilityStrategy1);
-    	logger.warn("Probability of Strategy 2 being chosen: " + probabilityStrategy2);
-    	logger.warn("Probability of Strategy 3 being chosen: " + probabilityStrategy3);
+    	//logger.warn("Probability of Strategy 1 being chosen: " + probabilityStrategy1);
+    	//logger.warn("Probability of Strategy 2 being chosen: " + probabilityStrategy2);
+    	//logger.warn("Probability of Strategy 3 being chosen: " + probabilityStrategy3);
     	
-    	
-    	 	
+    	assertTrue("Check probability of strategy 1", probabilityStrategy1<=0.25 && probabilityStrategy1>=0.13);
+    	assertTrue("Check probability of strategy 2", probabilityStrategy2<=0.60 && probabilityStrategy2>=0.40);
+    	assertTrue("Check probability of strategy 3", probabilityStrategy3>=0.28 && probabilityStrategy3<=0.40);
     	    	
     	
     }
