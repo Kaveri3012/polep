@@ -10,10 +10,16 @@
 	<!-- TODO: fill in other properties, as well as complete other agents -->
 
 	<bean id="polepModel" class="polep.domain.agent.PolepModel"
-		p:name="Polep Model" />
+		p:name="Polep Model"
+		p:simulationLength="1000" />
 
 	<bean id="producerA" class="polep.domain.agent.EnergyProducer"
-		p:name="Producer A" p:cash="0">
+		p:name="Producer A" 
+		p:cash="0"
+		p:experimentationParameter="0.1"
+		p:recencyParameter="0.1"
+		p:priceMarkUp="0"
+		p:prevCash="0">
 		<property name="powerPlantSet">
 			<set>
 				<ref bean="powerplantABase" />
@@ -38,7 +44,12 @@
 	</bean>
 
 	<bean id="producerB" class="polep.domain.agent.EnergyProducer"
-		p:name="Producer B" p:cash="0">
+		p:name="Producer B" 
+		p:cash="0"
+		p:experimentationParameter="0.1"
+		p:recencyParameter="0.1"
+		p:priceMarkUp="0"
+		p:prevCash="0">
 		<property name="powerPlantSet">
 			<set>
 				<ref bean="powerplantBBase" />
@@ -63,7 +74,12 @@
 	</bean>
 
 	<bean id="producerC" class="polep.domain.agent.EnergyProducer"
-		p:name="Producer C" p:cash="0">
+		p:name="Producer C" 
+		p:cash="0"
+		p:experimentationParameter="0.1"
+		p:recencyParameter="0.1"
+		p:priceMarkUp="0"
+		p:prevCash="0">
 		<property name="powerPlantSet">
 			<set>
 				<ref bean="powerplantCBase" />
@@ -89,7 +105,7 @@
 
 
 	<bean id="regulator" class="polep.domain.agent.Regulator" p:name="Regulator"
-		p:fine="1000" p:acceptableWitholdment="0.1" p:probabilityToCheck="1"
+		p:fine="10" p:acceptableWitholdment="0.1" p:probabilityToCheck="0.1"
 		p:cash="0">
 	</bean>
 

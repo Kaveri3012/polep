@@ -89,12 +89,14 @@ public class ClearSpotMarketRole extends AbstractRole<EnergyMarket> implements R
 			ClearingPoint clearingPoint = new ClearingPoint();
 			clearingPoint.setPrice(acceptedPrice);
 			clearingPoint.setVolume(demand);
+			clearingPoint.setTime(getCurrentTick());
 			clearingPoint.persist(); 
 		}
 		else {
 			ClearingPoint clearingPoint = new ClearingPoint();
 			clearingPoint.setPrice(market.getValueOfLostLoad());
 			clearingPoint.setVolume(sumofSupplyBidsAccepted);
+			clearingPoint.setTime(getCurrentTick());
 			clearingPoint.persist();
 		}
 	}
