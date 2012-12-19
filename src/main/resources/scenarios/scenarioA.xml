@@ -105,14 +105,14 @@
 
 
 	<bean id="regulator" class="polep.domain.agent.Regulator" p:name="Regulator"
-		p:fine="10" p:acceptableWitholdment="0.1" p:probabilityToCheck="0.1"
+		p:fine="1000" p:acceptableWitholdment="0.1" p:probabilityToCheck="0.1"
 		p:cash="0">
 	</bean>
 
 	<!-- Energy Market -->
 	<!-- Units: valueOfLostLoad:Eur/MWh_el -->
 	<bean id="electricityMarket" class="polep.domain.market.EnergyMarket"
-		p:name="Electricity Market" p:valueOfLostLoad="2000" p:demand="1500" />
+		p:name="Electricity Market" p:valueOfLostLoad="1000" p:demand="3600" />
 
 	<!-- PowerPlants -->
 	<!-- TODO: Add the other properties and relationships, define the other 
