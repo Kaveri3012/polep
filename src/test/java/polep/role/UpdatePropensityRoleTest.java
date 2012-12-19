@@ -2,6 +2,7 @@ package polep.role;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -33,6 +34,8 @@ public class UpdatePropensityRoleTest {
     @Autowired PowerPlantRepository powerPlantRepository;
     @Autowired EnergyProducerRepository energyProducerRepository;
     @Autowired BidRepository bidRepository; 
+    
+    @Autowired UpdatePropensityRole upr;
 	
     Logger logger = Logger.getLogger(UpdatePropensityRoleTest.class);
 	
@@ -44,25 +47,36 @@ public class UpdatePropensityRoleTest {
     @Test
     public void testPropensityRole() {
 
+    	BiddingStrategy strategy1 = new BiddingStrategy();
+    	strategy1.setPropensity(10);
+    	strategy1.persist();
+    	
+    	BiddingStrategy strategy2 = new BiddingStrategy();
+    	strategy2.setPropensity(10);
+    	strategy2.persist();
+    	
+    	BiddingStrategy strategy3 = new BiddingStrategy();
+    	strategy3.setPropensity(10);
+    	strategy3.persist();
+    	
+    	Set<BiddingStrategy> strategySet = new HashSet<BiddingStrategy>();
+    	strategySet.add(strategy1);
+    	strategySet.add(strategy2);
+    	strategySet.add(strategy3);
 	
     	EnergyProducer producer = new EnergyProducer();
+    	producer.setExperimentationParameter(0.1);
+    	producer.setPrevCash(500);
+    	producer.setCash(1000);
+    	producer.setChosenStrategy(strategy1);
+    	producer.setRecencyParameter(0.95);
     	producer.persist();
     	
-    	double experimentationParameter = 0.01;
-    	double recencyParameter = 0.95;	
-    	double cash = 550;
-    	double experiencefunction = 0;
-    	double prevCash = 500;
-    	producer.persist();
-    	
-    	
-    	
-    	Set<BiddingStrategy> strategySet;
-    	BiddingStrategy chosenstrategy;
-		    	
-    	  	
-    	UpdatePropensityRole upr = new UpdatePropensityRole();
     	upr.act(producer);	
+    	
+    	logger.warn(strategy1.getPropensity());
+    	logger.warn(strategy2.getPropensity());
+    	logger.warn(strategy3.getPropensity());
 		
 	}
 

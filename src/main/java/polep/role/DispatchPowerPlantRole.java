@@ -73,7 +73,7 @@ public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implem
 				if (currentBid.getStatus() == Bid.ACCEPTED){
 					
 					revenue = currentBid.getAcceptedVolume() * clearingPrice;
-					producer.setCash(prevCash + revenue);
+					producer.setCash(cash + revenue);
 							
 				} 
 
@@ -81,7 +81,7 @@ public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implem
 				if (currentBid.getStatus() == Bid.PARTLY_ACCEPTED){
 					
 					revenue = currentBid.getAcceptedVolume() * clearingPrice;
-					producer.setCash(prevCash + revenue);
+					producer.setCash(cash + revenue);
 		
 				}
 
@@ -108,7 +108,8 @@ public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implem
 			totalCost = plant.getMarginalCost()*dispatchedVolume;
 									
 			}
-			if(plant.getCapacity() > totalAcceptedVolume){
+			
+			else if(plant.getCapacity() > totalAcceptedVolume){
 			
 			dispatchedVolume = totalAcceptedVolume;
 			totalCost = plant.getMarginalCost()*dispatchedVolume;
@@ -116,10 +117,9 @@ public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implem
 			// should be zero	
 			
 			}
-			else{	
-			}
+			
 		
-		producer.setCash(cash - totalCost);
+		producer.setCash(producer.getCash() - totalCost);
 			
 		}	
 	}	
