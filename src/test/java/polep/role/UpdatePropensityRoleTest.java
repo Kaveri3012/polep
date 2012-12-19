@@ -46,6 +46,8 @@ public class UpdatePropensityRoleTest {
     
     @Test
     public void testPropensityRole() {
+    	
+    	
 
     	BiddingStrategy strategy1 = new BiddingStrategy();
     	strategy1.setPropensity(10);
@@ -68,19 +70,21 @@ public class UpdatePropensityRoleTest {
     	producer.setBiddingStrategySet(strategySet);
     	producer.setExperimentationParameter(0.1);
     	producer.setPrevCash(500);
-    	producer.setCash(1000);
+    	producer.setCash(600);
     	producer.setChosenStrategy(strategy1);
-    	producer.setRecencyParameter(0.95);
+    	producer.setRecencyParameter(0.55);
     	producer.persist();
     	
     	upr.act(producer);	
     	
-    	logger.warn(strategy1.getPropensity());
-    	logger.warn(strategy2.getPropensity());
-    	logger.warn(strategy3.getPropensity());
+    	//logger.warn(strategy1.getPropensity());
+    	//logger.warn(strategy2.getPropensity());
+    	//logger.warn(strategy3.getPropensity());
 		
     	
-    	
+    	assertTrue(strategy1.getPropensity() == 94.5);
+    	assertTrue(strategy2.getPropensity() == 9.5);
+    	assertTrue(strategy3.getPropensity() == 9.5);
 	}
 
 }

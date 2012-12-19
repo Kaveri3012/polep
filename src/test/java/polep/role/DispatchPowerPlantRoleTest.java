@@ -121,7 +121,7 @@ public class DispatchPowerPlantRoleTest {
     	//double price = clearingPointRepository.findClearingPointForMarketAndTime(0);
     	//logger.warn(price);
     	
-		logger.warn("Cash is " + producer.getCash());    	   
+		//logger.warn("Cash is " + producer.getCash());    	   
     	assertTrue("Checking producer has correct cash amount", producer.getCash()==580);
     	}
     
