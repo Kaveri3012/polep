@@ -41,9 +41,17 @@ public class PickStrategyRole  extends AbstractRole<EnergyProducer> implements R
 		int k;
 		
 		strategySet = producer.getBiddingStrategySet();
-		BiddingStrategy[] strategyArray = (BiddingStrategy[]) strategySet.toArray();
+		BiddingStrategy[] strategyArray =  new BiddingStrategy[strategySet.size()];
+	
+		int i = 0;
+		for(BiddingStrategy biddingStrategy : strategySet){
+			strategyArray[i] = biddingStrategy;
+					i++;
+		}
 		double[] propensityArray = new double[strategyArray.length];
-		for(int i = 0; i<strategyArray.length; i++){
+		
+		
+		for(i = 0; i<strategyArray.length; i++){
 			propensityArray[i] = strategyArray[i].getPropensity();
 		}
 
