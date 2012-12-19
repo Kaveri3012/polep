@@ -65,6 +65,7 @@ public class UpdatePropensityRoleTest {
     	strategySet.add(strategy3);
 	
     	EnergyProducer producer = new EnergyProducer();
+    	producer.setBiddingStrategySet(strategySet);
     	producer.setExperimentationParameter(0.1);
     	producer.setPrevCash(500);
     	producer.setCash(1000);
@@ -78,6 +79,8 @@ public class UpdatePropensityRoleTest {
     	logger.warn(strategy2.getPropensity());
     	logger.warn(strategy3.getPropensity());
 		
+    	
+    	
 	}
 
 }
