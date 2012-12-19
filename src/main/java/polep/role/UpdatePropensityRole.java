@@ -62,11 +62,15 @@ public class UpdatePropensityRole extends AbstractRole<EnergyProducer> implement
 		
 		
 		for(BiddingStrategy strategy : strategySet){ 
-		   				
-    		if (strategy == chosenstrategy)  {
+		   	
+			//logger.warn("strategy " + strategy.getNodeId() );
+			//logger.warn("chosen " + chosenstrategy.getNodeId() );
+			
+    		if (strategy.getNodeId() == chosenstrategy.getNodeId())  {
         	
     		experiencefunction = (cash-prevCash) * (1-experimentationParameter); 
         	strategy.setPropensity((1-recencyParameter)*strategy.getPropensity()+experiencefunction); 
+        	
         	
         	}
         	else {
