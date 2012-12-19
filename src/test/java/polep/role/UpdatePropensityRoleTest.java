@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import polep.domain.agent.EnergyProducer;
 import polep.domain.market.Bid;
+import polep.domain.market.BiddingStrategy;
 import polep.domain.technology.Fuel;
 import polep.domain.technology.PowerPlant;
 import polep.repository.BidRepository;
@@ -47,15 +48,19 @@ public class UpdatePropensityRoleTest {
     	EnergyProducer producer = new EnergyProducer();
     	producer.persist();
     	
+    	double experimentationParameter = 0.01;
+    	double recencyParameter = 0.95;	
+    	double cash = 550;
+    	double experiencefunction = 0;
+    	double prevCash = 500;
+    	producer.persist();
     	
     	
     	
-    	
-    	
-    	
-    	
-    	
-    	
+    	Set<BiddingStrategy> strategySet;
+    	BiddingStrategy chosenstrategy;
+		    	
+    	  	
     	UpdatePropensityRole upr = new UpdatePropensityRole();
     	upr.act(producer);	
 		
