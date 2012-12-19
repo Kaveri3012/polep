@@ -38,7 +38,7 @@ public class PickStrategyRoleTest {
     @Autowired PowerPlantRepository powerPlantRepository;
     @Autowired EnergyProducerRepository energyProducerRepository;
     @Autowired BidRepository bidRepository; 
-    
+    @Autowired PickStrategyRole pickStrategyRole;
     
     
     
@@ -59,10 +59,18 @@ public class PickStrategyRoleTest {
     	BiddingStrategy biddingStrategy2 = new BiddingStrategy();
     	BiddingStrategy biddingStrategy3 = new BiddingStrategy();
     	
-    	biddingStrategy1.setPropensity(0.1);
-    	biddingStrategy2.setPropensity(0.2);
-    	biddingStrategy3.setPropensity(0.3);
+    	biddingStrategy1.persist();
+    	biddingStrategy2.persist();
+    	biddingStrategy3.persist();
     	
+    	biddingStrategy1.setPropensity(0.1);
+    	biddingStrategy2.setPropensity(0.3);
+    	biddingStrategy3.setPropensity(0.2);
+    	//expected probability of strategy 1 = 1/6
+    	//expected probability of strategy 2 = 0.5
+    	// expected probability of strategy 3 = 0.33
+    	
+   
     	Set<BiddingStrategy> biddingStrategySet = new HashSet<BiddingStrategy>();
     	
     	biddingStrategySet.add(biddingStrategy1);
@@ -70,11 +78,19 @@ public class PickStrategyRoleTest {
     	biddingStrategySet.add(biddingStrategy3);
     	
     	producer.setBiddingStrategySet(biddingStrategySet); 
+    	producer.persist();
     	
-    	PickStrategyRole pickStrategyRole = new PickStrategyRole();
-    	pickStrategyRole.act(producer); 
+    	
+    	for (int i=0; i<=1000; i++){
+    		pickStrategyRole.act(producer); 
+    	}
+    	
+    	
+    	
     	
     	logger.warn("Chosen Strategy: " + producer.getChosenStrategy()); 
+    	
+    	
     	 	
     	    	
     	
