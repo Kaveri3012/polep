@@ -21,6 +21,20 @@
 				<ref bean="powerplantAPeak" />
 			</set>
 		</property>
+		<property name="biddingStrategySet">
+			<set>
+				<ref bean="aNoWithholdmentStrategy" />
+				<ref bean="aBase1LWithholdmentStrategy" />
+				<ref bean="aBase2LWithholdmentStrategy" />
+				<ref bean="aBase3LWithholdmentStrategy" />
+				<ref bean="aShoulder1LWithholdmentStrategy" />
+				<ref bean="aShoulder2LWithholdmentStrategy" />
+				<ref bean="aShoulder3LWithholdmentStrategy" />
+				<ref bean="aPeak1LWithholdmentStrategy" />
+				<ref bean="aPeak2LWithholdmentStrategy" />
+				<ref bean="aPeak3LWithholdmentStrategy" />
+			</set>
+		</property>
 	</bean>
 
 	<bean id="producerB" class="polep.domain.agent.EnergyProducer"
@@ -32,6 +46,20 @@
 				<ref bean="powerplantBPeak" />
 			</set>
 		</property>
+		<property name="biddingStrategySet">
+			<set>
+				<ref bean="bNoWithholdmentStrategy" />
+				<ref bean="bBase1LWithholdmentStrategy" />
+				<ref bean="bBase2LWithholdmentStrategy" />
+				<ref bean="bBase3LWithholdmentStrategy" />
+				<ref bean="bShoulder1LWithholdmentStrategy" />
+				<ref bean="bShoulder2LWithholdmentStrategy" />
+				<ref bean="bShoulder3LWithholdmentStrategy" />
+				<ref bean="bPeak1LWithholdmentStrategy" />
+				<ref bean="bPeak2LWithholdmentStrategy" />
+				<ref bean="bPeak3LWithholdmentStrategy" />
+			</set>
+		</property>
 	</bean>
 
 	<bean id="producerC" class="polep.domain.agent.EnergyProducer"
@@ -41,6 +69,20 @@
 				<ref bean="powerplantCBase" />
 				<ref bean="powerplantCShoulder" />
 				<ref bean="powerplantCPeak" />
+			</set>
+		</property>
+		<property name="biddingStrategySet">
+			<set>
+				<ref bean="cNoWithholdmentStrategy" />
+				<ref bean="cBase1LWithholdmentStrategy" />
+				<ref bean="cBase2LWithholdmentStrategy" />
+				<ref bean="cBase3LWithholdmentStrategy" />
+				<ref bean="cShoulder1LWithholdmentStrategy" />
+				<ref bean="cShoulder2LWithholdmentStrategy" />
+				<ref bean="cShoulder3LWithholdmentStrategy" />
+				<ref bean="cPeak1LWithholdmentStrategy" />
+				<ref bean="cPeak2LWithholdmentStrategy" />
+				<ref bean="cPeak3LWithholdmentStrategy" />
 			</set>
 		</property>
 	</bean>
@@ -119,7 +161,7 @@
 	<!-- Units: price: Eur/MWh_th -->
 	<bean id="coal" class="polep.domain.technology.Fuel" p:price="8" />
 	<bean id="gas" class="polep.domain.technology.Fuel" p:price="8" />
-	<bean id="nuclear" class="polep.domain.technology.Fuel" p:price="4" />
+	<bean id="uranium" class="polep.domain.technology.Fuel" p:price="4" />
 
 
 	<!-- PowerPlantWithholdments -->
@@ -128,7 +170,7 @@
 	<!-- Energy Producer's A Withholdments -->
 	<bean id="aBaseNoWithholdment" class="polep.domain.market.PowerPlantWithholdment"
 		p:powerplant-ref="powerplantABase" p:withholdment="0.0" />
-	<bean id="aBase1LWithholdment" class="polep.domain.market.PowerPlantWithholdment"
+	<bean id="bBase1LWithholdment" class="polep.domain.market.PowerPlantWithholdment"
 		p:powerplant-ref="powerplantABase" p:withholdment="${firstWithholdmentLevel}" />
 	<bean id="aBase2LWithholdment" class="polep.domain.market.PowerPlantWithholdment"
 		p:powerplant-ref="powerplantABase" p:withholdment="${secondWithholdmentLevel}" />

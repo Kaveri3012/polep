@@ -66,6 +66,8 @@ public class PowerPlant {
 	}
 
 	public double getMarginalCost() {
+		if(marginalCost==0)
+			marginalCost = calculateMarginalCost();
 		return marginalCost;
 	}
 	

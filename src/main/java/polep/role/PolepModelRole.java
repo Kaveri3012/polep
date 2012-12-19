@@ -122,6 +122,10 @@ public class PolepModelRole extends AbstractRole<PolepModel> implements Role<Pol
     	for(EnergyProducer energyProducer : energyProducerRepository.findAll()){
     		energyProducer.act(updatePropensityRole);
     	}
+    	
+        if (getCurrentTick() >= model.getSimulationLength()) {
+         agentspring.simulation.Schedule.getSchedule().stop();
+        }
     }
     
 }
