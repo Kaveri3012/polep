@@ -82,6 +82,10 @@ public class RegulatorRole extends AbstractRole<Regulator> implements Role<Regul
 				if (((1-acceptableWitholdment)*capacity) >= biddedCapacity){
 					double cash = currentProducer.getCash() - fine;
 					currentProducer.setCash(cash);
+					double regulatorsCash = regulator.getCash()+fine;
+					regulator.setCash(regulatorsCash);
+					
+					
 
 					// Changes probability value so that next time the probability of checking is higher. Currently set to zero					
 
