@@ -70,17 +70,18 @@ public class UpdatePropensityRole extends AbstractRole<EnergyProducer> implement
         	
     		experiencefunction = (cash-prevCash) * (1-experimentationParameter); 
         	strategy.setPropensity((1-recencyParameter)*strategy.getPropensity()+experiencefunction); 
-        	
-        	
+        	        	
         	}
         	else {
         	
         	experiencefunction = (cash-prevCash) * (experimentationParameter/(strategySet.size()-1)); 
         	strategy.setPropensity((1-recencyParameter)*strategy.getPropensity()+experiencefunction);
-
+        
         	}
     		
-    		
+    		if (strategy.getPropensity()<0){
+        		strategy.setPropensity(0);
+        	}
 		}	
     }
 }    
