@@ -58,14 +58,16 @@ public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implem
 		Iterable<Bid> allBids = bidRepository.findAllBidsPerProducerForTime(producer, getCurrentTick());
 		// gives sorted list of bids per producer? list to be defined in repository
 		
+		producer.setPrevCash(producer.getCash());
 
 		double clearingPrice = clearingPointRepository.findTheOneClearingPriceForTime(getCurrentTick());
 		double totalAcceptedVolume = 0;		
 		// getting the revenues		
 		for (Bid currentBid:allBids){
 			
+			
+			
 			double revenue = producer.getRevenue();
-			double prevCash = producer.getPrevCash();
 			double cash = producer.getCash();	
 			
 			totalAcceptedVolume += currentBid.getAcceptedVolume();
@@ -96,32 +98,32 @@ public class DispatchPowerPlantRole  extends AbstractRole<EnergyProducer> implem
 		
 		// physical dispatching 
 		double totalCost = 0;
-		double cash = producer.getCash();
 		double dispatchedVolume = 0;
 		
 		for (PowerPlant plant:allPlants){
 		
-			if( plant.getCapacity() < totalAcceptedVolume){
+			if( plant.getCapacity() <= totalAcceptedVolume){
 			
 			dispatchedVolume = plant.getCapacity();
 			totalAcceptedVolume = totalAcceptedVolume-dispatchedVolume;
-			totalCost = plant.getMarginalCost()*dispatchedVolume;
+			totalCost += plant.getMarginalCost()*dispatchedVolume;
 									
 			}
 			
-			else if(plant.getCapacity() > totalAcceptedVolume){
+			else {
 			
 			dispatchedVolume = totalAcceptedVolume;
-			totalCost = plant.getMarginalCost()*dispatchedVolume;
+			totalCost += plant.getMarginalCost()*dispatchedVolume;
 			totalAcceptedVolume = totalAcceptedVolume-dispatchedVolume;
 			// should be zero	
 			
 			}
 			
 		
-		producer.setCash(producer.getCash() - totalCost);
+		
 			
 		}	
+		producer.setCash(producer.getCash() - totalCost);
 	}	
 	
 }			
