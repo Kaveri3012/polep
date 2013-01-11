@@ -75,7 +75,7 @@ public class PolepModelRole extends AbstractRole<PolepModel> implements Role<Pol
     	
     	logger.warn("STARTING TICK {}", getCurrentTick());
     	
-    	logger.warn("1. Pick Strategy and bid into market!");
+    	//logger.warn("1. Pick Strategy and bid into market!");
     	for(EnergyProducer producer : energyProducerRepository.findAll()){
     		pickStrategyRole.act(producer);
     		bidIntoMarketRole.act(producer);
@@ -89,7 +89,7 @@ public class PolepModelRole extends AbstractRole<PolepModel> implements Role<Pol
     				Sort bids according to bid price
     				Determines market clearing price depending on demand.
     				Store ClearingPrice in database */
-    	logger.warn("2. Clear Spot Market!");
+    	//logger.warn("2. Clear Spot Market!");
     	template.findAll(EnergyMarket.class).iterator().next().act(clearSpotMarketRole);
 
 			/*	<------ DispatchPowerPlantRole: Ruben ------>
@@ -99,7 +99,7 @@ public class PolepModelRole extends AbstractRole<PolepModel> implements Role<Pol
     				Store Cash in PrevCash [think of the profit made by withholdment for determining the fine amount]
     				Update cash = cash + Revenue (double)
     				Revenues  = ClearingPrice*Volume */
-    	logger.warn("3. Dispatch power plants!");
+    	//logger.warn("3. Dispatch power plants!");
     	for(EnergyProducer producer : energyProducerRepository.findAll()){
     		dispatchPowerPlantRole.act(producer);
     	}   	
@@ -113,7 +113,7 @@ public class PolepModelRole extends AbstractRole<PolepModel> implements Role<Pol
     				If Bid volume is less than installed capacity = Fine
     				Fine is property of regulator
     				Update Cash = Cash - Fine */
-    	logger.warn("4. Regulator is checking!");
+    	//logger.warn("4. Regulator is checking!");
     	template.findAll(Regulator.class).iterator().next().act(regulatorRole);
 
     			
@@ -125,7 +125,7 @@ public class PolepModelRole extends AbstractRole<PolepModel> implements Role<Pol
     				qj(t+1) =(1-phi) * qj(t) +Ej(epsilon,j,k,t)  	
     				Ej(epsilon,k,t) = rk(t) [1-epsilon]  				if j = k
     				Ej(epsilon,k,t) = rk(t) [ epsilon/(N-1) ]			if j != k*/
-    	logger.warn("5. Producers update propensities!");
+    	//logger.warn("5. Producers update propensities!");
     	for(EnergyProducer energyProducer : energyProducerRepository.findAll()){
     		energyProducer.act(updatePropensityRole);
     	}
