@@ -266,7 +266,8 @@
 
 	<!-- Strategy for producer A -->
 	<bean id="aNoWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="aNoWithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="aBaseNoWithholdment" />
@@ -276,7 +277,8 @@
 		</property>
 	</bean>
 	<bean id="aBase1LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="aBase1WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="aBase1LWithholdment" />
@@ -286,7 +288,8 @@
 		</property>
 	</bean>
 	<bean id="aBase2LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="aBase2WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="aBase2LWithholdment" />
@@ -296,7 +299,8 @@
 		</property>
 	</bean>
 	<bean id="aBase3LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="aBase3WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="aBase3LWithholdment" />
@@ -306,7 +310,8 @@
 		</property>
 	</bean>
 	<bean id="aShoulder1LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="aShoulder1WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="aBaseNoWithholdment" />
@@ -316,7 +321,8 @@
 		</property>
 	</bean>
 	<bean id="aShoulder2LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="aShoulder2WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="aBaseNoWithholdment" />
@@ -326,7 +332,8 @@
 		</property>
 	</bean>
 	<bean id="aShoulder3LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="aShoulder3WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="aBaseNoWithholdment" />
@@ -336,7 +343,8 @@
 		</property>
 	</bean>
 	<bean id="aPeak1LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="aPeak1WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="aBaseNoWithholdment" />
@@ -346,7 +354,8 @@
 		</property>
 	</bean>
 	<bean id="aPeak2LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="aPeak2WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="aBaseNoWithholdment" />
@@ -356,7 +365,8 @@
 		</property>
 	</bean>
 	<bean id="aPeak3LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+			p:strategyName="aPeak3WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="aBaseNoWithholdment" />
@@ -368,7 +378,8 @@
 
 	<!-- Strategy for producer B -->
 	<bean id="bNoWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="bNoWithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="bBaseNoWithholdment" />
@@ -378,7 +389,8 @@
 		</property>
 	</bean>
 	<bean id="bBase1LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="bBase1WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="bBase1LWithholdment" />
@@ -388,7 +400,8 @@
 		</property>
 	</bean>
 	<bean id="bBase2LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="bBase2WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="bBase2LWithholdment" />
@@ -398,7 +411,8 @@
 		</property>
 	</bean>
 	<bean id="bBase3LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="bBase3WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="bBase3LWithholdment" />
@@ -408,7 +422,8 @@
 		</property>
 	</bean>
 	<bean id="bShoulder1LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="bShoulder1WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="bBaseNoWithholdment" />
@@ -418,7 +433,8 @@
 		</property>
 	</bean>
 	<bean id="bShoulder2LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="bShoulder2WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="bBaseNoWithholdment" />
@@ -428,7 +444,8 @@
 		</property>
 	</bean>
 	<bean id="bShoulder3LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="bShoulder3WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="bBaseNoWithholdment" />
@@ -438,7 +455,8 @@
 		</property>
 	</bean>
 	<bean id="bPeak1LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="bPeak1WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="bBaseNoWithholdment" />
@@ -448,7 +466,8 @@
 		</property>
 	</bean>
 	<bean id="bPeak2LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="bPeak2WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="bBaseNoWithholdment" />
@@ -458,7 +477,8 @@
 		</property>
 	</bean>
 	<bean id="bPeak3LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="bPeak3WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="bBaseNoWithholdment" />
@@ -471,7 +491,8 @@
 
 	<!-- Strategy for producer C -->
 	<bean id="cNoWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="cNoWithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="cBaseNoWithholdment" />
@@ -481,7 +502,8 @@
 		</property>
 	</bean>
 	<bean id="cBase1LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="cBase1WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="cBase1LWithholdment" />
@@ -491,7 +513,8 @@
 		</property>
 	</bean>
 	<bean id="cBase2LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="cBase2WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="cBase2LWithholdment" />
@@ -501,7 +524,8 @@
 		</property>
 	</bean>
 	<bean id="cBase3LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="cBase3WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="cBase3LWithholdment" />
@@ -511,7 +535,8 @@
 		</property>
 	</bean>
 	<bean id="cShoulder1LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="cShoulder1WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="cBaseNoWithholdment" />
@@ -521,7 +546,8 @@
 		</property>
 	</bean>
 	<bean id="cShoulder2LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+			p:strategyName="cShoulder2WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="cBaseNoWithholdment" />
@@ -531,7 +557,8 @@
 		</property>
 	</bean>
 	<bean id="cShoulder3LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+		p:strategyName="cShoulder3WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="cBaseNoWithholdment" />
@@ -541,7 +568,8 @@
 		</property>
 	</bean>
 	<bean id="cPeak1LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+			p:strategyName="cPeak1WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="cBaseNoWithholdment" />
@@ -551,7 +579,8 @@
 		</property>
 	</bean>
 	<bean id="cPeak2LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+			p:strategyName="cPeak2WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="cBaseNoWithholdment" />
@@ -561,7 +590,8 @@
 		</property>
 	</bean>
 	<bean id="cPeak3LWithholdmentStrategy" class="polep.domain.market.BiddingStrategy"
-		p:propensity="${initialPropensity}">
+		p:propensity="${initialPropensity}"
+			p:strategyName="cPeak3WithholdmentStrategy">
 		<property name="setOfPowerPlantWithholdments">
 			<set>
 				<ref bean="cBaseNoWithholdment" />
