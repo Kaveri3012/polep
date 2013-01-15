@@ -64,7 +64,7 @@ public class RegulatorRole extends AbstractRole<Regulator> implements Role<Regul
 
 			// coin.flip(currentProducer.getProbability()); 
 
-
+			currentProducer.setFineLastPaid(0);
 
 			coin.flip(0); 
 			double result = coin.getSide(); // flips coin gets value
@@ -85,7 +85,7 @@ public class RegulatorRole extends AbstractRole<Regulator> implements Role<Regul
 					double regulatorsCash = regulator.getCash()+fine;
 					regulator.setCash(regulatorsCash);
 					
-					
+					currentProducer.setFineLastPaid(fine);
 
 					// Changes probability value so that next time the probability of checking is higher. Currently set to zero					
 

@@ -46,11 +46,17 @@ public class EnergyProducer extends AbstractAgent implements Agent {
     @RelatedTo(type = "PRODUCER_STRATEGY", elementClass = BiddingStrategy.class, direction = Direction.OUTGOING)
     private Set<BiddingStrategy> biddingStrategySet;
     
+  
+    
+       
+    
     @RelatedTo(type = "PRODUCER_CHOSENSTRATEGY", elementClass = BiddingStrategy.class, direction =  Direction.OUTGOING)
     private BiddingStrategy chosenStrategy; 
     
     public double prevCash;
     
+    private double fineLastPaid; 
+
 	public double revenue;
 	
 	public double experiencefunction;
@@ -165,5 +171,15 @@ public class EnergyProducer extends AbstractAgent implements Agent {
 	public void setProbability(double probability) {
 		this.probabilitytoBeControlledbyRegulator = probability;
 	}
+	
+	public double getFineLastPaid() {
+		return fineLastPaid;
+	}
+
+	public void setFineLastPaid(double fineLastPaid) {
+		this.fineLastPaid = fineLastPaid;
+	}
+
+	
 
 }

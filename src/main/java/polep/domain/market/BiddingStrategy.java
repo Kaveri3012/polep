@@ -11,6 +11,8 @@ public class BiddingStrategy {
 
 	private double propensity;
 	
+	  private String strategyName; 
+	
 	@RelatedTo(type = "STRATEGY_ELEMENT", elementClass = PowerPlantWithholdment.class, direction=Direction.OUTGOING)
 	Set<PowerPlantWithholdment> setOfPowerPlantWithholdments;
 
@@ -42,6 +44,12 @@ public class BiddingStrategy {
 		this.setOfPowerPlantWithholdments = setOfPowerPlantWithholdments;
 	}
 	
-	
+	public String getStrategyName() {
+		return strategyName;
+	}
+
+	public void setStrategyName(String strategyName) {
+		this.strategyName = strategyName;
+	}
 	
 }

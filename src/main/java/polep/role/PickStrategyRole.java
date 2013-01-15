@@ -33,14 +33,14 @@ import agentspring.role.RoleComponent;
 @RoleComponent
 public class PickStrategyRole  extends AbstractRole<EnergyProducer> implements Role<EnergyProducer>{ 
 
-	Set<BiddingStrategy> strategySet;
+	Set<BiddingStrategy> strategySet; //declaration of a new strategy set
 	
 	
 	@Transactional
 	public void act(EnergyProducer producer){
 		int k;
 		
-		strategySet = producer.getBiddingStrategySet();
+		strategySet = producer.getBiddingStrategySet(); //this means that it has to be loaded as part of the scenario for the energy producer already. 
 		BiddingStrategy[] strategyArray =  new BiddingStrategy[strategySet.size()];
 	
 		int i = 0;
