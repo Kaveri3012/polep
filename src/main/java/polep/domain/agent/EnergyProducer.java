@@ -46,8 +46,7 @@ public class EnergyProducer extends AbstractAgent implements Agent {
     @RelatedTo(type = "PRODUCER_STRATEGY", elementClass = BiddingStrategy.class, direction = Direction.OUTGOING)
     private Set<BiddingStrategy> biddingStrategySet;
     
-  
-    
+     
        
     
     @RelatedTo(type = "PRODUCER_CHOSENSTRATEGY", elementClass = BiddingStrategy.class, direction =  Direction.OUTGOING)

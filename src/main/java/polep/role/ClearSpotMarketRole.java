@@ -54,10 +54,10 @@ public class ClearSpotMarketRole extends AbstractRole<EnergyMarket> implements R
 
 
 				if (demand-(sumofSupplyBidsAccepted + currentBid.getVolume()) >=  - clearingEpsilon){
-					acceptedPrice = currentBid.getPrice();
-					currentBid.setStatus(Bid.ACCEPTED);
-					currentBid.setAcceptedVolume(currentBid.getVolume());
-					sumofSupplyBidsAccepted += currentBid.getVolume();
+						acceptedPrice = currentBid.getPrice();
+						currentBid.setStatus(Bid.ACCEPTED);
+						currentBid.setAcceptedVolume(currentBid.getVolume());
+						sumofSupplyBidsAccepted += currentBid.getVolume();
 
 					// logger.warn("{}", sumofSupplyBidsAccepted);
 				} 
